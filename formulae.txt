@@ -1,0 +1,6 @@
+cmake
+difftastic
+llvm
+lua-language-server
+neovim
+python
