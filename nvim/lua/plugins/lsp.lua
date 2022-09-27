@@ -18,7 +18,7 @@ vim.diagnostic.config({
     source = "always",
     header = "",
     prefix = "",
-	},
+  },
 })
 
 -- Add additional capabilities supported by nvim-cmp
@@ -70,6 +70,7 @@ local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
   buf_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
@@ -84,8 +85,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>o', '<cmd>ClangdSwitchSourceHeader<cr>', opts)
 end
 
--- "bashls", "sumneko_lua", "pyright", "clangd", "tsserver", "html", "cssls"
-local servers = { 'bashls', 'sumneko_lua',' pyright', 'clangd', 'tsserver', 'html', 'ccsls' }
+local servers = { 'bashls', 'sumneko_lua', 'pyright', 'clangd', 'tsserver', 'html', 'cssls' }
 local server_settings = {
   ['sumneko_lua'] = {
     Lua = {
@@ -132,4 +132,3 @@ for _, lsp in ipairs(servers) do
 
   lspconfig[lsp].setup(args)
 end
-
