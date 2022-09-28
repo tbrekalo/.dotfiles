@@ -1,16 +1,9 @@
-local g   = vim.g
-local o   = vim.o
-local opt = vim.opt
-local A   = vim.api
-
--- cmd('syntax on')
--- vim.api.nvim_command('filetype plugin indent on')
-
+local g = vim.g
+local o = vim.o
 
 -- update time
 o.timeoutlen = 500
 o.updatetime = 200
-
 
 -- number line
 o.number = true
@@ -28,10 +21,10 @@ o.softtabstop = -1 -- If negative, shiftwidth value is used
 o.list = true
 o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 
--- share clipboard with OS 
+-- share clipboard with OS
 o.clipboard = 'unnamedplus'
 
--- smart case search setup 
+-- smart case search setup
 o.ignorecase = true
 o.smartcase = true
 
@@ -44,11 +37,6 @@ o.backupdir = '/tmp/'
 o.directory = '/tmp/'
 o.undodir = '/tmp/'
 
--- sane buffer splitting
-o.splitright = true
-o.splitbelow = true
-
 -- map <leader> to space
 g.mapleader = ' '
 g.maplocalleader = ' '
-
