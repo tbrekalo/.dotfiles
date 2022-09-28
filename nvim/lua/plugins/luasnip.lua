@@ -25,8 +25,3 @@ vim.keymap.set({ 'i', 's' }, '<c-l>', function()
     ls.change_choice(1)
   end
 end, { silent = true })
-
-ls.snippets {
-
-}
-
