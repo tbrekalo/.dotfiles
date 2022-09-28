@@ -16,7 +16,7 @@ cmp.setup {
     end,
   },
 
--- Completion settings
+  -- Completion settings
   completion = {
     --completeopt = 'menu,menuone,noselect'
     keyword_length = 4
@@ -37,19 +37,19 @@ cmp.setup {
 
   -- Load sources, see: https://github.com/topics/nvim-cmp
   sources = {
-    { name = 'nvim_lsp', keyword_length = 2},
-    { name = 'nvim-lua', keyword_length = 2},
-    { name = 'buffer', keyword_length = 3},
-    { name = 'fish'},
-    { name = 'path' },
     { name = 'luasnip' },
+    { name = 'nvim_lsp', keyword_length = 2 },
+    { name = 'nvim-lua', keyword_length = 2 },
+    { name = 'buffer', keyword_length = 3 },
+    { name = 'fish' },
+    { name = 'path' },
   },
 
   experimental = {
     native_menu = false,
     ghost_text = true,
   },
-}-- If you want insert `(` after select function or method item
+} -- If you want insert `(` after select function or method item
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on(
