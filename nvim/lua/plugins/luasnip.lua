@@ -27,6 +27,9 @@ add_binding('<c-l>',
   ls.choice_active,
   function() ls.change_choice(1) end)
 
+local s = ls.s;
+local fmt = require('luasnip.extras.fmt').fmt
+
 ls.add_snippets('lua', {
   ls.parser.parse_snippet('pcall',
     'local is_$1_ok, $1 = pcall(require, \'$2\')\n' ..
@@ -34,4 +37,3 @@ ls.add_snippets('lua', {
     '  return\n' ..
     'end\n')
 }, { key = 'lua' })
-
