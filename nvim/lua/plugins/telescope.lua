@@ -23,6 +23,6 @@ end
 map('n', 'ff', '<cmd>Telescope find_files<cr>')
 map('n', 'fh', '<cmd>Telescope find_files hidden=true<cr>')
 map('n', 'fb', '<cmd>Telescope buffers<cr>')
-map('n', 'fd', '<cmd>Telescope diagnostics<cr>')
+map('n', 'fd', '<cmd>Telescope diagnostics bufnr=0<cr>')
 map('n', 'rg', '<cmd>Telescope live_grep<cr>')
 map('n', 'gs', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>')
