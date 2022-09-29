@@ -4,7 +4,7 @@ if not is_treesitter_ok then
 end
 
 treesitter_cfg.setup {
-  ensure_installed = { 'cpp', 'json', 'lua', 'typescript' },
+  ensure_installed = { 'cpp', 'json', 'jsx', 'lua', 'tsx', 'typescript', 'typescriptreact' },
   sync_install = true,
   additional_vim_regex_highlighting = false,
 
