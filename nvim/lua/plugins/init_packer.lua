@@ -77,7 +77,10 @@ return packer.startup(function(use)
   use 'nickeb96/fish.vim'
 
   -- autocomplete
-  use 'L3MON4D3/LuaSnip'
+  use {
+    'L3MON4D3/LuaSnip',
+    run = 'make install_jsregexp'
+  }
   use {
     'hrsh7th/nvim-cmp',
     requires = {
