@@ -8,4 +8,7 @@ map('n', '<C-K>', '<C-W><C-K>')
 map('n', '<C-L>', '<C-W><C-L>')
 
 map('n', 'gn', '<cmd>tabnew<cr>')
-map('n', '<leader>lf', '<cmd>luafile %<cr>')
+map('n', '<leader>l', function() 
+  print('reloaded ' .. vim.fn.expand('%'))
+  vim.cmd('luafile %')
+end)
