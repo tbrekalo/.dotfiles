@@ -105,4 +105,8 @@ return packer.startup(function(use)
 
   -- git
   use 'tpope/vim-fugitive'
+  use {
+    'ruifm/gitlinker.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+  }
 end)

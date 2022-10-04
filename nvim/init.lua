@@ -11,4 +11,5 @@ require('plugins.luasnip')
 require('plugins.lsp')
 
 require('plugins.lualine')
+require('plugins.gitlinker')
 require('plugins.telescope')
