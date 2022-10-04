@@ -3,4 +3,5 @@ difftastic
 llvm
 lua-language-server
 neovim
+node
 python
