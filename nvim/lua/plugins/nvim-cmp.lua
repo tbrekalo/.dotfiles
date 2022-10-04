@@ -19,7 +19,7 @@ cmp.setup {
   -- Completion settings
   completion = {
     --completeopt = 'menu,menuone,noselect'
-    keyword_length = 4
+    keyword_length = 2
   },
 
   -- Key mapping
@@ -38,8 +38,8 @@ cmp.setup {
   -- Load sources, see: https://github.com/topics/nvim-cmp
   sources = {
     { name = 'luasnip' },
-    { name = 'nvim_lsp', keyword_length = 2 },
-    { name = 'nvim-lua', keyword_length = 2 },
+    { name = 'nvim_lsp' },
+    { name = 'nvim-lua' },
     { name = 'buffer', keyword_length = 3 },
     { name = 'fish' },
     { name = 'path' },
