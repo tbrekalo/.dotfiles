@@ -1,5 +1,5 @@
+require('core.settings') -- has to go before because of the leader key
 require('core.keybingins')
-require('core.settings')
 
 require('plugins.init_packer')
 
