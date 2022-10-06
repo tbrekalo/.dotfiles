@@ -21,8 +21,6 @@ vim.diagnostic.config({
   },
 })
 
--- Add additional capabilities supported by nvim-cmp
--- See: https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
@@ -58,11 +56,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
+  vim.keymap.set('n', '<leader>f', function()
+    vim.lsp.buf.format {
+      async = true,
+      timeout = 2000,
+    }
+  end, opts)
   vim.keymap.set('n', '<leader>o', '<cmd>ClangdSwitchSourceHeader<cr>', opts)
 end
 
-local servers = { 'bashls', 'sumneko_lua', 'pyright', 'clangd', 'tsserver', 'html', 'cssls' }
+local servers = { 'sumneko_lua', 'pyright', 'clangd', 'tsserver', 'html', 'cssls' }
 local server_settings = {
   ['sumneko_lua'] = {
     Lua = {
@@ -91,7 +94,6 @@ local server_settings = {
     }
   },
 }
-
 
 -- Call setup
 for _, lsp in ipairs(servers) do
