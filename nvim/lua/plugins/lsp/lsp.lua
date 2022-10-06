@@ -62,7 +62,9 @@ local on_attach = function(client, bufnr)
       timeout = 2000,
     }
   end, opts)
-  vim.keymap.set('n', '<leader>o', '<cmd>ClangdSwitchSourceHeader<cr>', opts)
+  if client.name == 'clangd' then
+    vim.keymap.set('n', '<leader>o', '<cmd>ClangdSwitchSourceHeader<cr>', opts)
+  end
 end
 
 local servers = { 'sumneko_lua', 'pyright', 'clangd', 'tsserver', 'html', 'cssls' }

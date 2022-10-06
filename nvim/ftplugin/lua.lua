@@ -3,4 +3,3 @@ vim.keymap.set('n', '<leader>l', function()
   print('reloaded ' .. target_file)
   vim.cmd('luafile ' .. target_file)
 end)
-
