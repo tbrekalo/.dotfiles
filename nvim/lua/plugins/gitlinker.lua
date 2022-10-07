@@ -3,4 +3,4 @@ if not is_gitlinker_ok then
   return
 end
 
-gitlinker.setup{}
+gitlinker.setup({})

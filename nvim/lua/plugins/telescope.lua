@@ -7,7 +7,7 @@ telescope.setup({
   defaults = {
     file_ignore_patterns = {
       'venv',
-    }
+    },
   },
   extensions = {
     fzf = {

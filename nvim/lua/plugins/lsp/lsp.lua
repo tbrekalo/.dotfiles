@@ -13,11 +13,11 @@ vim.diagnostic.config({
   update_in_insert = true,
   float = {
     focusable = false,
-    style = "minimal",
-    border = "rounded",
-    source = "always",
-    header = "",
-    prefix = "",
+    style = 'minimal',
+    border = 'rounded',
+    source = 'always',
+    header = '',
+    prefix = '',
   },
 })
 
@@ -57,10 +57,10 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   vim.keymap.set('n', '<leader>f', function()
-    vim.lsp.buf.format {
+    vim.lsp.buf.format({
       async = true,
       timeout = 2000,
-    }
+    })
   end, opts)
   if client.name == 'clangd' then
     vim.keymap.set('n', '<leader>o', '<cmd>ClangdSwitchSourceHeader<cr>', opts)
@@ -71,29 +71,29 @@ local servers = { 'sumneko_lua', 'pyright', 'clangd', 'tsserver', 'html', 'cssls
 local server_settings = {
   ['sumneko_lua'] = {
     Lua = {
-      cmd = { "lua-language-server" },
+      cmd = { 'lua-language-server' },
       format = {
         enable = false,
       },
-      filetypes = { "lua" },
+      filetypes = { 'lua' },
       runtime = {
-        version = "LuaJIT",
+        version = 'LuaJIT',
       },
-      completion = { enable = true, callSnippet = "Both" },
+      completion = { enable = true, callSnippet = 'Both' },
       diagnostics = {
         enable = true,
-        globals = { "vim", "describe" },
+        globals = { 'vim', 'describe' },
       },
       workspace = {
         library = {
-          vim.api.nvim_get_runtime_file("", true),
+          vim.api.nvim_get_runtime_file('', true),
         },
         -- adjust these two values if your performance is not optimal
         maxPreload = 2000,
         preloadFileSize = 1000,
       },
       telemetry = { enable = false },
-    }
+    },
   },
 }
 
@@ -105,7 +105,7 @@ for _, lsp in ipairs(servers) do
     flags = {
       -- default in neovim 0.7+
       debounce_text_changes = 150,
-    }
+    },
   }
   if server_settings[lsp] then
     args.settings = server_settings[lsp]

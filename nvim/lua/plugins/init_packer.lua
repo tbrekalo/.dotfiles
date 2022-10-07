@@ -1,15 +1,15 @@
 local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 -- bootstrap packer if not installed
 if fn.empty(fn.glob(install_path)) > 0 then
   fn.system({
-    "git",
-    "clone",
-    "https://github.com/wbthomason/packer.nvim",
+    'git',
+    'clone',
+    'https://github.com/wbthomason/packer.nvim',
     install_path,
   })
-  print("Installing packer...")
-  vim.api.nvim_command("packadd packer.nvim")
+  print('Installing packer...')
+  vim.api.nvim_command('packadd packer.nvim')
 end
 
 -- Use a protected call so we don't error out on first use
@@ -25,7 +25,7 @@ packer.init({
   -- Have packer use a popup window
   display = {
     open_fn = function()
-      return require('packer.util').float({ border = "rounded" })
+      return require('packer.util').float({ border = 'rounded' })
     end,
   },
 })
@@ -35,53 +35,54 @@ local packer_group = vim.api.nvim_create_augroup('packer_user_config', { clear =
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = 'init_packer.lua',
   command = 'source <afile> | PackerSync',
-  group = packer_group
+  group = packer_group,
 })
 
 -- manage plugins
 return packer.startup(function(use)
   -- self manage packer
-  use 'wbthomason/packer.nvim'
+  use('wbthomason/packer.nvim')
 
   -- styling
-  use 'kyazdani42/nvim-web-devicons'
-  use 'EdenEast/nightfox.nvim'
-  use 'folke/tokyonight.nvim'
-  use 'nvim-lualine/lualine.nvim'
+  use('kyazdani42/nvim-web-devicons')
+  use('EdenEast/nightfox.nvim')
+  use('folke/tokyonight.nvim')
+  use('nvim-lualine/lualine.nvim')
   vim.cmd('colorscheme nordfox')
 
   -- file navigation
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+  use({
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.0',
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
-        'nvim-telescope/telescope-fzf-native.nvim', run =
-        [[
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = [[
           cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && 
           cmake --build build --config Release && 
           cmake --install build --prefix build
-        ]]
+        ]],
       },
-    }
-  }
+    },
+  })
 
   -- lsp
-  use 'neovim/nvim-lspconfig'
-  use 'jose-elias-alvarez/null-ls.nvim'
-  use {
+  use('neovim/nvim-lspconfig')
+  use('jose-elias-alvarez/null-ls.nvim')
+  use({
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use 'folke/lua-dev.nvim'
-  use 'nickeb96/fish.vim'
+    run = ':TSUpdate',
+  })
+  use('folke/lua-dev.nvim')
+  use('nickeb96/fish.vim')
 
   -- autocomplete
-  use {
+  use({
     'L3MON4D3/LuaSnip',
-    run = 'make install_jsregexp'
-  }
-  use {
+    run = 'make install_jsregexp',
+  })
+  use({
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/cmp-nvim-lsp',
@@ -91,22 +92,24 @@ return packer.startup(function(use)
       'mtoohey31/cmp-fish',
       'saadparwaiz1/cmp_luasnip',
     },
-  }
+  })
 
-  use 'windwp/nvim-ts-autotag'
-  use 'ray-x/lsp_signature.nvim'
+  use('windwp/nvim-ts-autotag')
+  use('ray-x/lsp_signature.nvim')
 
   -- formatting
-  use 'lukas-reineke/indent-blankline.nvim'
-  use {
+  use('lukas-reineke/indent-blankline.nvim')
+  use({
     'windwp/nvim-autopairs',
-    config = function() require("nvim-autopairs").setup {} end
-  }
+    config = function()
+      require('nvim-autopairs').setup({})
+    end,
+  })
 
   -- git
-  use 'tpope/vim-fugitive'
-  use {
+  use('tpope/vim-fugitive')
+  use({
     'ruifm/gitlinker.nvim',
     requires = 'nvim-lua/plenary.nvim',
-  }
+  })
 end)

@@ -8,7 +8,7 @@ if not luasnip_status_ok then
   return
 end
 
-cmp.setup {
+cmp.setup({
   -- Load snippet support
   snippet = {
     expand = function(args)
@@ -19,7 +19,7 @@ cmp.setup {
   -- Completion settings
   completion = {
     --completeopt = 'menu,menuone,noselect'
-    keyword_length = 2
+    keyword_length = 2,
   },
 
   -- Key mapping
@@ -29,10 +29,10 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<C-y>'] = cmp.mapping.confirm {
+    ['<C-y>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    },
+    }),
   },
 
   -- Load sources, see: https://github.com/topics/nvim-cmp
@@ -49,10 +49,7 @@ cmp.setup {
     native_menu = false,
     ghost_text = true,
   },
-} -- If you want insert `(` after select function or method item
+}) -- If you want insert `(` after select function or method item
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
