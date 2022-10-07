@@ -3,6 +3,12 @@ if not cmp_status_ok then
   return
 end
 
+local cmp_lsp_ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+if not cmp_lsp_ok then
+  return
+end
+
+-- TODO: avoid early return on failure
 local luasnip_status_ok, luasnip = pcall(require, 'luasnip')
 if not luasnip_status_ok then
   return
@@ -54,4 +60,26 @@ cmp.setup({
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
-return cmp
+return {
+  cmp,
+  bind_capabilities = function(capabilities)
+    capabilities = cmp_lsp.update_capabilities(capabilities)
+
+    local completionItem = capabilities.textDocument.completion.completionItem
+    completionItem.documentationFormat = { 'markdown', 'plaintext' }
+    completionItem.snippetSupport = true
+    completionItem.preselectSupport = true
+    completionItem.insertReplaceSupport = true
+    completionItem.labelDetailsSupport = true
+    completionItem.deprecatedSupport = true
+    completionItem.commitCharactersSupport = true
+    completionItem.tagSupport = { valueSet = { 1 } }
+    completionItem.resolveSupport = {
+      properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+      },
+    }
+  end,
+}
