@@ -8,31 +8,24 @@ if not cmp_status_ok then
   return
 end
 
--- Diagnostic options, see: `:help vim.diagnostic.config`
-vim.diagnostic.config({
-  update_in_insert = true,
-  float = {
-    focusable = false,
-    style = 'minimal',
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
-})
+require('plugins.lsp.nvim-cmp')
+require('plugins.lsp.null-ls')
+require('plugins.lsp.lua-dev')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
-capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown', 'plaintext' }
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
+local completionItem = capabilities.textDocument.completion.completionItem
+
+completionItem.documentationFormat = { 'markdown', 'plaintext' }
+completionItem.snippetSupport = true
+completionItem.preselectSupport = true
+completionItem.insertReplaceSupport = true
+completionItem.labelDetailsSupport = true
+completionItem.deprecatedSupport = true
+completionItem.commitCharactersSupport = true
+completionItem.tagSupport = { valueSet = { 1 } }
+completionItem.resolveSupport = {
   properties = {
     'documentation',
     'detail',
