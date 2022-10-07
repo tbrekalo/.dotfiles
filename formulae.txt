@@ -5,3 +5,4 @@ lua-language-server
 neovim
 node
 python
+stylua

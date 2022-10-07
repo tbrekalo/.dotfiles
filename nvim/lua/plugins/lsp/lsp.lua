@@ -73,7 +73,7 @@ local server_settings = {
     Lua = {
       cmd = { "lua-language-server" },
       format = {
-        enable = true, -- set to false to let null-ls handle the formatting
+        enable = false,
       },
       filetypes = { "lua" },
       runtime = {
