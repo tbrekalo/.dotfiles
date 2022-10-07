@@ -36,7 +36,7 @@ completionItem.resolveSupport = {
 local on_attach = function(client, bufnr)
   local lsp_signature_ok, lsp_signature = pcall(require, 'lsp_signature')
   if lsp_signature_ok then
-    lsp_signature.on_attach()
+    lsp_signature.on_attach({ hint_prefix = '' }, bufnr)
   end
 
   -- Mappings.
