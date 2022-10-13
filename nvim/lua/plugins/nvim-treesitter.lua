@@ -4,9 +4,19 @@ if not is_treesitter_ok then
 end
 
 treesitter_cfg.setup({
-  ensure_installed = { 'cpp', 'json', 'lua', 'tsx', 'html', 'typescript', 'sql' },
   sync_install = true,
   additional_vim_regex_highlighting = false,
+  ensure_installed = { 'cpp', 'html', 'json', 'lua', 'python', 'sql', 'tsx', 'typescript' },
+
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<leader>t',
+      node_incremental = 'tn',
+      scope_incremental = 'tg',
+      node_decremental = 'tp',
+    },
+  },
 
   autotag = {
     enable = true,
