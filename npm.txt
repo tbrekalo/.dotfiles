@@ -1,1 +1,2 @@
- npm i -g vscode-langservers-extracted
+vscode-langservers-extracted
+grammarly-languageserver
