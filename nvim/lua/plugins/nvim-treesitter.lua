@@ -5,8 +5,12 @@ end
 
 treesitter_cfg.setup({
   sync_install = true,
-  additional_vim_regex_highlighting = false,
-  ensure_installed = { 'cpp', 'html', 'json', 'lua', 'python', 'sql', 'tsx', 'typescript' },
+  ensure_installed = { 'cpp', 'html', 'json', 'lua', 'python', 'scss', 'sql', 'tsx', 'typescript' },
+
+  highlight = {
+    enable = true,
+    dissable = {'cpp', 'python'}
+  },
 
   incremental_selection = {
     enable = true,
