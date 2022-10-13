@@ -10,7 +10,7 @@ require('plugins.lsp.components.lua-dev')
 local on_attach = require('plugins.lsp.attach')
 local capabilities = cmp.bind_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local configured = { 'pyright', 'tsserver', 'html', 'cssls' }
+local configured = { 'cssls', 'html', 'pyright', 'tsserver' }
 for _, lsp in ipairs(configured) do
   lspconfig[lsp].setup({
     on_attach = on_attach,

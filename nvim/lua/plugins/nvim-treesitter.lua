@@ -5,7 +5,17 @@ end
 
 treesitter_cfg.setup({
   sync_install = true,
-  ensure_installed = { 'cpp', 'html', 'json', 'lua', 'python', 'scss', 'sql', 'tsx', 'typescript' },
+  ensure_installed = {
+    'html',
+    'json',
+    'lua',
+    'python',
+    'scss',
+    'sql',
+    'tsx',
+    'typescript',
+    'cpp',
+  },
 
   highlight = {
     enable = true,
