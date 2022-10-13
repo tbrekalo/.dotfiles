@@ -9,7 +9,6 @@ treesitter_cfg.setup({
 
   highlight = {
     enable = true,
-    dissable = {'cpp', 'python'}
   },
 
   incremental_selection = {
