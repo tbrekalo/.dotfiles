@@ -34,8 +34,11 @@ lspconfig['clangd'].setup({
   capabilities = capabilities,
 })
 
-local sumneko_settings = {
-  ['sumneko_lua'] = {
+lspconfig['sumneko_lua'].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+
+  settings = {
     Lua = {
       cmd = { 'lua-language-server' },
       format = {
@@ -61,4 +64,4 @@ local sumneko_settings = {
       telemetry = { enable = false },
     },
   },
-}
+})
