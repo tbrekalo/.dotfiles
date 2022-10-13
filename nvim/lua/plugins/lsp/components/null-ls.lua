@@ -8,12 +8,14 @@ local diagnostics = nls.builtins.diagnostics
 
 nls.setup({
   sources = {
+    diagnostics.eslint,
     diagnostics.fish,
     diagnostics.pylint,
 
     formatting.autopep8,
     formatting.cmake_format,
     formatting.fish_indent,
+    formatting.prettier,
     formatting.stylua.with({
       extra_args = {
         '--indent-type',
