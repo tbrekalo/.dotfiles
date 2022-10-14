@@ -5,7 +5,7 @@ The main focus is around [neovim](https://neovim.io/) and [tmux](https://github.
 
 ## Noevim
 
-##* General key bindings
+##\* General key bindings
 
 ```lua
 local function map(m, k, v)
@@ -38,13 +38,14 @@ map('n', 'gr', '<cmd>Telescope lsp_references<cr>')
 ### LSP
 
 Using neovim's [lsp-config](https://github.com/neovim/nvim-lspconfig)
-  - preconfigured clients
-  - clangd
-  - cssls
-  - html
-  - pyright
-  - sumneko lua
-  - tsserver
+
+- preconfigured clients
+- clangd
+- cssls
+- html
+- pyright
+- sumneko lua
+- tsserver
 
 ### Keybindings
 
@@ -71,11 +72,13 @@ Done throught [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
   - eslint
   - fish
   - pylint
+  - sqlfluff
 - formatting
   - autopep8
   - cmake_format
   - fish_indent
   - prettier
+  - sqlfluff
   - stylua
 
 ### Treesitter
@@ -106,6 +109,7 @@ Enabled features:
   - typescript'
 
 ### Quality of life
+
 - [gitlinker](https://github.com/ruifm/gitlinker.nvim)
 - [lualine](https://github.com/nvim-lualine/lualine.nvim)
 - [LuaSnip](https://github.com/L3MON4D3/LuaSnip)

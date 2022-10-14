@@ -5,3 +5,4 @@ conan
 mypy
 pylint
 pyright
+sqlfluff
