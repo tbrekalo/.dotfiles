@@ -11,13 +11,17 @@ nls.setup({
     diagnostics.eslint,
     diagnostics.fish,
     diagnostics.pylint,
-    diagnostics.sqlfluff,
+    diagnostics.sqlfluff.with({
+      extra_args = { '--dialect', 'mysql' },
+    }),
 
     formatting.autopep8,
     formatting.cmake_format,
     formatting.fish_indent,
     formatting.prettier,
-    formatting.sqlfluff,
+    formatting.sqlfluff.with({
+      extra_args = { '--dialect', 'mysql' },
+    }),
     formatting.stylua.with({
       extra_args = {
         '--indent-type',
