@@ -1,9 +1,8 @@
-require('impatient') -- keep it at the top
-
 require('core.settings') -- has to go before because of the leader key
 require('core.keybingins')
 
 require('plugins.init_packer')
+require('impatient')
 require('plugins.lsp.main')
 
 require('plugins.nvim-treesitter')
