@@ -43,6 +43,9 @@ return packer.startup(function(use)
   -- self manage packer
   use('wbthomason/packer.nvim')
 
+  -- quality of life
+  use 'lewis6991/impatient.nvim'
+
   -- styling
   use('kyazdani42/nvim-web-devicons')
   use('EdenEast/nightfox.nvim')

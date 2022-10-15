@@ -1,3 +1,5 @@
+require('impatient') -- keep it at the top
+
 require('core.settings') -- has to go before because of the leader key
 require('core.keybingins')
 
