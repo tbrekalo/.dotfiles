@@ -74,7 +74,7 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   })
-  use('folke/lua-dev.nvim')
+  use('folke/nodedev.nvim')
   use('nickeb96/fish.vim')
 
   -- autocomplete

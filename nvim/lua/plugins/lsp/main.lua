@@ -3,12 +3,12 @@ if not lsp_status_ok then
   return
 end
 
-local cmp = require('plugins.lsp.components.nvim-cmp')
+require('plugins.lsp.components.nvim-cmp')
 require('plugins.lsp.components.null-ls')
-require('plugins.lsp.components.lua-dev')
+require('plugins.lsp.components.nodedev')
 
 local on_attach = require('plugins.lsp.attach')
-local capabilities = cmp.bind_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local configured = { 'cssls', 'html', 'pyright', 'tsserver' }
 for _, lsp in ipairs(configured) do

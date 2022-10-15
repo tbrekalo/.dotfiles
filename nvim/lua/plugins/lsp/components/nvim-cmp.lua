@@ -59,27 +59,3 @@ cmp.setup({
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-
-return {
-  cmp,
-  bind_capabilities = function(capabilities)
-    capabilities = cmp_lsp.update_capabilities(capabilities)
-
-    local completionItem = capabilities.textDocument.completion.completionItem
-    completionItem.documentationFormat = { 'markdown', 'plaintext' }
-    completionItem.snippetSupport = true
-    completionItem.preselectSupport = true
-    completionItem.insertReplaceSupport = true
-    completionItem.labelDetailsSupport = true
-    completionItem.deprecatedSupport = true
-    completionItem.commitCharactersSupport = true
-    completionItem.tagSupport = { valueSet = { 1 } }
-    completionItem.resolveSupport = {
-      properties = {
-        'documentation',
-        'detail',
-        'additionalTextEdits',
-      },
-    }
-  end,
-}
