@@ -10,7 +10,7 @@ require('plugins.lsp.components.nodedev')
 local on_attach = require('plugins.lsp.attach')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local configured = { 'cssls', 'html', 'pyright', 'tsserver' }
+local configured = { 'cmake', 'cssls', 'html', 'pyright', 'tsserver' }
 for _, lsp in ipairs(configured) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
