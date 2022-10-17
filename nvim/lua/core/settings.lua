@@ -40,3 +40,10 @@ o.undodir = '/tmp/'
 -- map <leader> to space
 g.mapleader = ' '
 g.maplocalleader = ' '
+
+-- skip some remote provider loading
+g.loaded_python3_provider = 0
+g.loaded_node_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+
