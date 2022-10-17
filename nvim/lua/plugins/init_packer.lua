@@ -1,22 +1,23 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
--- bootstrap packer if not installed
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({
-    'git',
-    'clone',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path,
-  })
-  print('Installing packer...')
-  vim.api.nvim_command('packadd packer.nvim')
+local bootstrap_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+
+  local is_bootstrapped = false
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({
+      'git',
+      'clone',
+      'https://github.com/wbthomason/packer.nvim',
+      install_path,
+    })
+    print('Installing packer...')
+    vim.api.nvim_command('packadd packer.nvim')
+  end
+
+  return is_bootstrapped, require('packer')
 end
 
--- Use a protected call so we don't error out on first use
-local is_packer_ok, packer = pcall(require, 'packer')
-if not is_packer_ok then
-  return
-end
+local is_bootstrapped, packer = bootstrap_packer()
 
 packer.init({
   enable = true, -- enable profiling via :PackerCompile profile=true
@@ -115,4 +116,8 @@ return packer.startup(function(use)
     'ruifm/gitlinker.nvim',
     requires = 'nvim-lua/plenary.nvim',
   })
+
+  if is_bootstrapped then
+    packer.sync()
+  end
 end)
