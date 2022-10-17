@@ -3,4 +3,4 @@ if not is_leap_ok then
   return
 end
 
--- leap.add_default_mappings()
+leap.add_default_mappings()
