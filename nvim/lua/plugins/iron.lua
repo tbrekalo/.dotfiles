@@ -15,6 +15,9 @@ iron.setup({
       fish = {
         command = { 'fish' },
       },
+      lua = {
+        command = { 'luajit' },
+      },
       python = require('iron.fts.python').ipython,
     },
 
