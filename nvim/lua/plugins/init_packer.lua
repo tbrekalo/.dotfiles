@@ -117,6 +117,10 @@ return packer.startup(function(use)
   use('windwp/nvim-ts-autotag')
   use('ray-x/lsp_signature.nvim')
 
+
+  -- REPL
+  use('hkupty/iron.nvim')
+
   -- formatting
   use('lukas-reineke/indent-blankline.nvim')
   use({
