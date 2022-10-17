@@ -45,7 +45,13 @@ return packer.startup(function(use)
   use('wbthomason/packer.nvim')
 
   -- quality of life
-  use 'lewis6991/impatient.nvim'
+  use('lewis6991/impatient.nvim')
+  use({
+    'tversteeg/registers.nvim',
+    config = function()
+      require('registers').setup()
+    end,
+  })
 
   -- styling
   use('kyazdani42/nvim-web-devicons')
