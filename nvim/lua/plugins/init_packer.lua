@@ -53,6 +53,16 @@ return packer.startup(function(use)
     end,
   })
 
+  -- movement
+  use('chaoren/vim-wordmotion')
+  use({
+    {
+      'ggandor/leap.nvim',
+      requires = 'tpope/vim-repeat',
+    },
+    { 'ggandor/flit.nvim', config = [[require'flit'.setup { labeled_modes = 'nv' }]] },
+  })
+
   -- styling
   use('kyazdani42/nvim-web-devicons')
   use('EdenEast/nightfox.nvim')
