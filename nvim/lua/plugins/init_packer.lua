@@ -68,7 +68,7 @@ return packer.startup(function(use)
   use('EdenEast/nightfox.nvim')
   use('folke/tokyonight.nvim')
   use('nvim-lualine/lualine.nvim')
-  vim.cmd('colorscheme tokyonight-storm')
+  vim.cmd('colorscheme terafox')
 
   -- file navigation
   use({
