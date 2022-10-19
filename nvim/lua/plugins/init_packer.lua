@@ -31,6 +31,7 @@ packer.init({
   },
 })
 
+
 -- Autocommand that reloads neovim whenever you save the packer_init.lua file
 local packer_group = vim.api.nvim_create_augroup('packer_user_config', {})
 vim.api.nvim_create_autocmd('BufWritePost', {
@@ -68,7 +69,7 @@ return packer.startup(function(use)
   use('EdenEast/nightfox.nvim')
   use('folke/tokyonight.nvim')
   use('nvim-lualine/lualine.nvim')
-  vim.cmd('colorscheme terafox')
+  vim.cmd('colorscheme tokyonight-night')
 
   -- file navigation
   use({
