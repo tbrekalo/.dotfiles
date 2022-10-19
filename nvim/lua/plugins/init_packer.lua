@@ -32,7 +32,7 @@ packer.init({
 })
 
 -- Autocommand that reloads neovim whenever you save the packer_init.lua file
-local packer_group = vim.api.nvim_create_augroup('packer_user_config', { clear = true })
+local packer_group = vim.api.nvim_create_augroup('packer_user_config', {})
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = 'init_packer.lua',
   command = 'source <afile> | PackerSync',
@@ -116,7 +116,6 @@ return packer.startup(function(use)
 
   use('windwp/nvim-ts-autotag')
   use('ray-x/lsp_signature.nvim')
-
 
   -- REPL
   use('hkupty/iron.nvim')
