@@ -6,6 +6,7 @@ end
 treesitter_cfg.setup({
   sync_install = true,
   ensure_installed = {
+    'css',
     'html',
     'json',
     'lua',
