@@ -15,6 +15,7 @@ treesitter_cfg.setup({
     'tsx',
     'typescript',
     'cpp',
+    'cmake'
   },
 
   highlight = {
