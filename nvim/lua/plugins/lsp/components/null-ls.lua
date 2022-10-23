@@ -16,7 +16,6 @@ nls.setup({
     }),
 
     formatting.autopep8,
-    formatting.cmake_format,
     formatting.fish_indent,
     formatting.prettier,
     formatting.sqlfluff.with({
