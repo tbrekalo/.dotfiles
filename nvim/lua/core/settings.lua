@@ -50,5 +50,15 @@ g.loaded_ruby_provider = 0
 local terminal_group = vim.api.nvim_create_augroup('TerminalGroup', {})
 vim.api.nvim_create_autocmd('TermOpen', {
   group = terminal_group,
-  command = 'setlocal nonumber norelativenumber',
+  callback = function()
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+  end,
+})
+
+local help_group = vim.api.nvim_create_augroup('HelpGroup', {})
+vim.api.nvim_create_autocmd('FileType', {
+  group = help_group,
+  pattern = 'help',
+  command = 'wincmd L',
 })
