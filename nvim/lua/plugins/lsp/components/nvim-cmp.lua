@@ -44,6 +44,7 @@ cmp.setup({
   -- Load sources, see: https://github.com/topics/nvim-cmp
   sources = {
     { name = 'luasnip' },
+    { name = 'orgmode' },
     { name = 'nvim_lsp' },
     { name = 'nvim-lua' },
     { name = 'buffer', keyword_length = 3 },

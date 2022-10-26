@@ -53,6 +53,15 @@ return packer.startup(function(use)
     end,
   })
 
+  -- tree sitter
+  use({
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  })
+
+  -- orgmode
+  use('nvim-orgmode/orgmode')
+
   -- movement
   use('chaoren/vim-wordmotion')
   -- use({
@@ -90,10 +99,6 @@ return packer.startup(function(use)
   -- lsp
   use('neovim/nvim-lspconfig')
   use('jose-elias-alvarez/null-ls.nvim')
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-  })
   use('folke/nodedev.nvim')
   use('nickeb96/fish.vim')
 
