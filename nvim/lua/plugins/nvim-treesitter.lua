@@ -6,17 +6,18 @@ end
 treesitter_cfg.setup({
   sync_install = true,
   ensure_installed = {
+    'cmake',
+    'cpp',
     'css',
     'html',
     'json',
     'lua',
+    'org',
     'python',
     'scss',
     'sql',
     'tsx',
     'typescript',
-    'cpp',
-    'cmake'
   },
 
   highlight = {
