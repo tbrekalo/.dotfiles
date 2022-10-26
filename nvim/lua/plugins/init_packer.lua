@@ -61,6 +61,12 @@ return packer.startup(function(use)
 
   -- orgmode
   use('nvim-orgmode/orgmode')
+  use({
+    'akinsho/org-bullets.nvim',
+    config = function()
+      require('org-bullets').setup()
+    end,
+  })
 
   -- movement
   use('chaoren/vim-wordmotion')
