@@ -25,7 +25,7 @@ lspconfig['clangd'].setup({
     if client.name == 'clangd' then
       vim.keymap.set(
         'n',
-        '<leader>o',
+        '<leader>h',
         '<cmd>ClangdSwitchSourceHeader<cr>',
         { noremap = true, silent = true, buffer = bufnr }
       )
