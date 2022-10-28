@@ -14,6 +14,7 @@ treesitter_cfg.setup({
     'lua',
     'org',
     'python',
+    'rust',
     'scss',
     'sql',
     'tsx',

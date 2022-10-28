@@ -104,6 +104,7 @@ return packer.startup(function(use)
 
   -- lsp
   use('neovim/nvim-lspconfig')
+  use 'simrat39/rust-tools.nvim'
   use('jose-elias-alvarez/null-ls.nvim')
   use('folke/nodedev.nvim')
   use('nickeb96/fish.vim')
