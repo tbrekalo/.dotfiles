@@ -9,5 +9,6 @@ map('n', '<C-K>', '<C-W><C-K>')
 map('n', '<C-L>', '<C-W><C-L>')
 
 map('n', 'gn', '<cmd>tabnew<cr>')
+map('n', 'gx', '<cmd>tabclose<cr>')
 map('t', '<ESC>', [[<C-\><C-n>]], { silent = true, noremap = true })
 map('t', '<ESC>', [[<C-\><C-n>]], { silent = true, noremap = true })
