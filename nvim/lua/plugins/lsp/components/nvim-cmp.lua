@@ -3,11 +3,6 @@ if not cmp_status_ok then
   return
 end
 
-local cmp_lsp_ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-if not cmp_lsp_ok then
-  return
-end
-
 -- TODO: avoid early return on failure
 local luasnip_status_ok, luasnip = pcall(require, 'luasnip')
 if not luasnip_status_ok then
@@ -27,6 +22,8 @@ cmp.setup({
     --completeopt = 'menu,menuone,noselect'
     keyword_length = 2,
   },
+
+  preselect = cmp.PreselectMode.None,
 
   -- Key mapping
   mapping = {

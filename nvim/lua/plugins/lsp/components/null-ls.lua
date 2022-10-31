@@ -18,6 +18,7 @@ nls.setup({
     formatting.autopep8,
     formatting.fish_indent,
     formatting.prettier,
+    formatting.rustfmt,
     formatting.sqlfluff.with({
       extra_args = { '--dialect', 'mysql' },
     }),
