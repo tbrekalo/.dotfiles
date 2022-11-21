@@ -108,6 +108,8 @@ return packer.startup(function(use)
   use('jose-elias-alvarez/null-ls.nvim')
   use('folke/nodedev.nvim')
   use('nickeb96/fish.vim')
+  -- nim
+  use('alaviss/nim.nvim')
 
   -- autocomplete
   use({

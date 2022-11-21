@@ -10,6 +10,7 @@ nls.setup({
   sources = {
     diagnostics.eslint,
     diagnostics.fish,
+    diagnostics.mypy,
     diagnostics.pylint,
     diagnostics.sqlfluff.with({
       extra_args = { '--dialect', 'mysql' },
@@ -17,6 +18,7 @@ nls.setup({
 
     formatting.autopep8,
     formatting.fish_indent,
+    formatting.nimpretty,
     formatting.prettier,
     formatting.rustfmt,
     formatting.sqlfluff.with({
