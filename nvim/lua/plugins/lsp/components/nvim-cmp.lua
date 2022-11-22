@@ -19,11 +19,11 @@ cmp.setup({
 
   -- Completion settings
   completion = {
-    --completeopt = 'menu,menuone,noselect'
+    -- completeopt = 'menu,menuone,noselect',
     keyword_length = 2,
   },
 
-  preselect = cmp.PreselectMode.None,
+  -- preselect = cmp.PreselectMode.None,
 
   -- Key mapping
   mapping = {
@@ -44,6 +44,7 @@ cmp.setup({
     { name = 'orgmode' },
     { name = 'nvim_lsp' },
     { name = 'nvim-lua' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'buffer', keyword_length = 3 },
     { name = 'fish' },
     { name = 'path' },

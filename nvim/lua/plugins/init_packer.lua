@@ -83,7 +83,7 @@ return packer.startup(function(use)
   use('EdenEast/nightfox.nvim')
   use('folke/tokyonight.nvim')
   use('nvim-lualine/lualine.nvim')
-  vim.cmd('colorscheme tokyonight-night')
+  vim.cmd('colorscheme terafox')
 
   -- file navigation
   use({
@@ -122,6 +122,7 @@ return packer.startup(function(use)
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
 
       'mtoohey31/cmp-fish',
       'saadparwaiz1/cmp_luasnip',

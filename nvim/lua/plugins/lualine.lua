@@ -5,6 +5,6 @@ end
 
 lualine.setup({
   options = {
-    theme = 'tokyonight',
+    theme = 'nordfox',
   },
 })
