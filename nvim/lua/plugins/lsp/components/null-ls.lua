@@ -37,7 +37,7 @@ nls.setup({
   },
 
   on_attach = function(client, bufnr)
-    vim.keymap.set('n', '<leader>f', function()
+    vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
       vim.lsp.buf.format({
         async = true,
         timeout = 2000,
