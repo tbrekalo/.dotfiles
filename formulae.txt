@@ -1,5 +1,6 @@
 cmake
 difftastic
+jq
 llvm
 lua-language-server
 neovim

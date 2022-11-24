@@ -9,6 +9,7 @@ local diagnostics = nls.builtins.diagnostics
 nls.setup({
   sources = {
     diagnostics.eslint,
+    diagnostics.jsonlint,
     diagnostics.fish,
     diagnostics.mypy,
     diagnostics.pylint,
@@ -19,6 +20,7 @@ nls.setup({
 
     formatting.autopep8,
     formatting.fish_indent,
+    formatting.jq,
     formatting.nimpretty,
     formatting.prettier,
     formatting.rustfmt,
