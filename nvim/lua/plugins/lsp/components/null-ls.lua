@@ -15,6 +15,7 @@ nls.setup({
     diagnostics.sqlfluff.with({
       extra_args = { '--dialect', 'mysql' },
     }),
+    diagnostics.yamllint,
 
     formatting.autopep8,
     formatting.fish_indent,
