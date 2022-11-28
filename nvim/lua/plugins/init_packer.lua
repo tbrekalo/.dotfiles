@@ -86,6 +86,7 @@ return packer.startup(function(use)
   vim.cmd('colorscheme terafox')
 
   -- file navigation
+  use('tpope/vim-vinegar')
   use({
     'nvim-telescope/telescope.nvim',
     tag = '0.1.0',
