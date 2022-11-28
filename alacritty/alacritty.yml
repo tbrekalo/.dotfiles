@@ -4,6 +4,7 @@ env:
 
 window:
   title: term
+  decorations: None
 
 scrolling:
   history: 2000
