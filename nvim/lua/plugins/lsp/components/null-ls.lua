@@ -47,4 +47,6 @@ nls.setup({
       })
     end, { noremap = true, silent = true, buffer = bufnr })
   end,
+
+  root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.git', '.pyproject.toml'),
 })
