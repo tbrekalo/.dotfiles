@@ -4,7 +4,6 @@ if not is_treesitter_ok then
 end
 
 treesitter_cfg.setup({
-  sync_install = true,
   ensure_installed = {
     'cmake',
     'cpp',
@@ -12,9 +11,7 @@ treesitter_cfg.setup({
     'html',
     'json',
     'lua',
-    'org',
     'python',
-    'rust',
     'scss',
     'sql',
     'tsx',

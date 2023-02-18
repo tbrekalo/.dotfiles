@@ -5,12 +5,11 @@ end
 
 require('plugins.lsp.components.nvim-cmp')
 require('plugins.lsp.components.null-ls')
-require('plugins.lsp.components.nodedev')
 
 local on_attach = require('plugins.lsp.attach')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local configured = { 'cmake', 'cssls', 'html', 'nimls', 'ocamllsp', 'pyright', 'tsserver' }
+local configured = { 'cmake', 'cssls', 'html', 'pyright', 'tsserver' }
 for _, lsp in ipairs(configured) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
@@ -34,29 +33,7 @@ lspconfig['clangd'].setup({
   capabilities = capabilities,
 })
 
-lspconfig['rust_analyzer'].setup({
-  on_attach = on_attach,
-  settings = {
-    ['rust-analyzer'] = {
-      imports = {
-        granularity = {
-          group = 'module',
-        },
-        prefix = 'self',
-      },
-      cargo = {
-        buildScripts = {
-          enable = true,
-        },
-      },
-      procMacro = {
-        enable = true,
-      },
-    },
-  },
-})
-
-lspconfig['sumneko_lua'].setup({
+lspconfig['lua_ls'].setup({
   on_attach = on_attach,
   capabilities = capabilities,
 
