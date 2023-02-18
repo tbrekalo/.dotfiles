@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-plugins = {
+local plugins = {
   -- styling
   'kyazdani42/nvim-web-devicons',
   'nvim-lualine/lualine.nvim',
@@ -39,6 +39,7 @@ plugins = {
   -- tree sitter
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = { 'windwp/nvim-ts-autotag' },
     config = function()
       vim.cmd('TSUpdateSync')
     end,
@@ -65,8 +66,12 @@ plugins = {
     },
   },
 
-  'windwp/nvim-ts-autotag',
-  'windwp/nvim-autopairs',
+  {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup({})
+    end,
+  },
 
   -- formatting
   'lukas-reineke/indent-blankline.nvim',
