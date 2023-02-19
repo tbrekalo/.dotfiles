@@ -1,4 +1,4 @@
-local keybingins = function(opts)
+local attach_keybindings = function(opts)
   -- Mappings.
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
@@ -14,4 +14,4 @@ local keybingins = function(opts)
   end, opts)
 end
 
-return keybingins
+return attach_keybindings
