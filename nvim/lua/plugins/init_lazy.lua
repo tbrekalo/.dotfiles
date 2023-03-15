@@ -12,9 +12,51 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+  -- quality of life stuff
+  'nvim-lua/plenary.nvim',
+
+  -- git related plugins
+  'tpope/vim-fugitive',
+  'ruifm/gitlinker.nvim',
+
+  -- automatic indentation and blanklines
+  { 'lukas-reineke/indent-blankline.nvim', opts = {} },
+  'tpope/vim-sleuth',
+
+  -- lsp configuration
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      -- package managment for lsp
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+
+      -- status updates for lsp
+      { 'j-hui/fidget.nvim', opts = {} },
+
+      -- additional lua configuration
+      { 'folke/neodev.nvim', opts = {} },
+    },
+  },
+  'jose-elias-alvarez/null-ls.nvim',
+
+  -- autocomplete
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      {
+        'L3MON4D3/LuaSnip',
+        build = 'make install_jsregexp',
+      },
+    },
+  },
+
   -- styling
   'kyazdani42/nvim-web-devicons',
-  'nvim-lualine/lualine.nvim',
   {
     'EdenEast/nightfox.nvim',
     lazy = false,
@@ -24,17 +66,18 @@ local plugins = {
     end,
   },
 
+  {
+    'nvim-lualine/lualine.nvim',
+    opts = {
+      theme = 'nightfox',
+      component_separators = '|',
+      section_separators = '',
+    },
+  },
+
   -- utility
   'chaoren/vim-wordmotion',
-  {
-    'tversteeg/registers.nvim',
-    name = 'registers',
-    keys = {
-      { '"', mode = { 'n', 'v' } },
-      { '<C-R>', mode = 'i' },
-    },
-    cmd = 'Registers',
-  },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- tree sitter
   {
@@ -45,36 +88,12 @@ local plugins = {
     end,
   },
 
-  -- lsp
-  'neovim/nvim-lspconfig',
-  'ray-x/lsp_signature.nvim',
-  'jose-elias-alvarez/null-ls.nvim',
-
-  -- autocomplete
-  {
-    'L3MON4D3/LuaSnip',
-    build = 'make install_jsregexp',
-  },
-
-  {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-    },
-  },
-
   {
     'windwp/nvim-autopairs',
     config = function()
       require('nvim-autopairs').setup({})
     end,
   },
-
-  -- formatting
-  'lukas-reineke/indent-blankline.nvim',
 
   -- file navigation
   {
@@ -94,13 +113,6 @@ local plugins = {
 
   -- REPL
   'hkupty/iron.nvim',
-
-  -- git
-  'tpope/vim-fugitive',
-  {
-    'ruifm/gitlinker.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-  },
 }
 
 require('lazy').setup(plugins)
