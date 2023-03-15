@@ -5,4 +5,5 @@ require('plugins.init_lazy')
 
 require('plugins.nvim-treesitter')
 require('plugins.telescope')
+require('plugins.luasnip')
 require('plugins.lsp')

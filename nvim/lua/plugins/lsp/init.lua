@@ -4,7 +4,12 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
   'clangd',
+  'cmake',
+  'cssls',
+  'html',
   'lua_ls',
+  'pyright',
+  'tsserver',
 })
 
 lsp.configure('clangd', {
@@ -98,6 +103,7 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
 vim.diagnostic.config({
   virtual_text = true
 })
