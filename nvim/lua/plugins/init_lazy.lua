@@ -53,7 +53,6 @@ local plugins = {
           end,
         },
       },
-      { 'rafamadriz/friendly-snippets' }, -- Optional
 
       -- status updates for lsp
       { 'j-hui/fidget.nvim', opts = {} },
@@ -118,14 +117,6 @@ local plugins = {
       },
     },
   },
-
-  {
-    'folke/which-key.nvim',
-    opts = {},
-  },
-
-  -- REPL
-  'hkupty/iron.nvim',
 }
 
 require('lazy').setup(plugins)
