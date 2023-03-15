@@ -17,6 +17,7 @@ local plugins = {
 
   -- git related plugins
   'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
   'ruifm/gitlinker.nvim',
 
   -- automatic indentation and blanklines
@@ -25,33 +26,40 @@ local plugins = {
 
   -- lsp configuration
   {
-    'neovim/nvim-lspconfig',
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v1.x',
     dependencies = {
-      -- package managment for lsp
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' }, -- Required
+      { 'williamboman/mason.nvim' }, -- Optional
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+
+      -- autocompletion
+      { 'hrsh7th/nvim-cmp' }, -- Required
+      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'hrsh7th/cmp-buffer' }, -- Optional
+      { 'hrsh7th/cmp-path' }, -- Optional
+      { 'saadparwaiz1/cmp_luasnip' }, -- Optional
+      { 'hrsh7th/cmp-nvim-lua' }, -- Optional
+
+      -- snippets
+      {
+        'L3MON4D3/LuaSnip',
+        build = 'make install_jsregexp',
+        dependencies = {
+          'rafamadriz/friendly-snippets',
+          config = function()
+            require('luasnip.loaders.from_vscode').lazy_load()
+          end,
+        },
+      },
+      { 'rafamadriz/friendly-snippets' }, -- Optional
 
       -- status updates for lsp
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- additional lua configuration
       { 'folke/neodev.nvim', opts = {} },
-    },
-  },
-  'jose-elias-alvarez/null-ls.nvim',
-
-  -- autocomplete
-  {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      {
-        'L3MON4D3/LuaSnip',
-        build = 'make install_jsregexp',
-      },
     },
   },
 
@@ -95,7 +103,7 @@ local plugins = {
     end,
   },
 
-  -- file navigation
+  -- navigation
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
@@ -109,6 +117,11 @@ local plugins = {
         ]],
       },
     },
+  },
+
+  {
+    'folke/which-key.nvim',
+    opts = {},
   },
 
   -- REPL
