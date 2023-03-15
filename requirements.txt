@@ -1,9 +1,0 @@
-autopep8
-black
-cmake-language-server
-conan
-mypy
-pylint
-pyright
-sqlfluff
-yamllint
