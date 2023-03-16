@@ -124,6 +124,7 @@ null_ls.setup({
     diagnostics.yamllint,
 
     formatting.autopep8,
+    formatting.isort,
     formatting.fish_indent,
     formatting.jq,
     formatting.nimpretty,
