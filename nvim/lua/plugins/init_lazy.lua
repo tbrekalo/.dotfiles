@@ -25,42 +25,45 @@ local plugins = {
   'tpope/vim-sleuth',
 
   -- lsp configuration
+  -- LSP Support
+  { 'neovim/nvim-lspconfig' }, -- Required
+  { 'williamboman/mason.nvim' }, -- Optional
+  { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+
+  -- autocompletion
+  { 'hrsh7th/nvim-cmp' }, -- Required
+  { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+  { 'hrsh7th/cmp-buffer' }, -- Optional
+  { 'hrsh7th/cmp-path' }, -- Optional
+  { 'saadparwaiz1/cmp_luasnip' }, -- Optional
+  { 'hrsh7th/cmp-nvim-lua' }, -- Optional
+
+  -- snippets
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
+    'L3MON4D3/LuaSnip',
+    build = 'make install_jsregexp',
     dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' }, -- Required
-      { 'williamboman/mason.nvim' }, -- Optional
-      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-      -- autocompletion
-      { 'hrsh7th/nvim-cmp' }, -- Required
-      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'hrsh7th/cmp-buffer' }, -- Optional
-      { 'hrsh7th/cmp-path' }, -- Optional
-      { 'saadparwaiz1/cmp_luasnip' }, -- Optional
-      { 'hrsh7th/cmp-nvim-lua' }, -- Optional
-
-      -- snippets
-      {
-        'L3MON4D3/LuaSnip',
-        build = 'make install_jsregexp',
-        dependencies = {
-          'rafamadriz/friendly-snippets',
-          config = function()
-            require('luasnip.loaders.from_vscode').lazy_load()
-          end,
-        },
-      },
-
-      -- status updates for lsp
-      { 'j-hui/fidget.nvim', opts = {} },
-
-      -- additional lua configuration
-      { 'folke/neodev.nvim', opts = {} },
+      'rafamadriz/friendly-snippets',
+      config = function()
+        require('luasnip.loaders.from_vscode').lazy_load()
+      end,
     },
   },
+
+  -- formatting
+  {
+    'jay-babu/mason-null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'jose-elias-alvarez/null-ls.nvim',
+    },
+  },
+
+  -- status updates for lsp
+  { 'j-hui/fidget.nvim', opts = {} },
+
+  -- additional lua configuration
+  { 'folke/neodev.nvim', opts = {} },
 
   -- styling
   'kyazdani42/nvim-web-devicons',
@@ -110,8 +113,8 @@ local plugins = {
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = [[
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && 
-          cmake --build build --config Release && 
+          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release &&
+          cmake --build build --config Release &&
           cmake --install build --prefix build
         ]],
       },
