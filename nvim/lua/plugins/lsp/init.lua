@@ -42,7 +42,7 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '<leader>f', function()
+  vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
     vim.lsp.buf.format({
       async = true,
     })
@@ -118,31 +118,16 @@ null_ls.setup({
     diagnostics.fish,
     diagnostics.mypy,
     diagnostics.pylint,
-    diagnostics.sqlfluff.with({
-      extra_args = { '--dialect', 'mysql' },
-    }),
+    diagnostics.sqlfluff,
     diagnostics.yamllint,
 
     formatting.autopep8,
     formatting.isort,
-    formatting.fish_indent,
     formatting.jq,
-    formatting.nimpretty,
     formatting.prettier,
     formatting.rustfmt,
-    formatting.sqlfluff.with({
-      extra_args = { '--dialect', 'mysql' },
-    }),
-    formatting.stylua.with({
-      extra_args = {
-        '--indent-type',
-        'Spaces',
-        '--indent-width',
-        '2',
-        '--quote-style',
-        'ForceSingle',
-      },
-    }),
+    formatting.sqlfluff,
+    formatting.stylua,
   },
 
   on_attach = function(_, bufnr)
