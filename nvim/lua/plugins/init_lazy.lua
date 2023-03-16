@@ -66,7 +66,7 @@ local plugins = {
   { 'folke/neodev.nvim', opts = {} },
 
   -- styling
-  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
   {
     'EdenEast/nightfox.nvim',
     lazy = false,
