@@ -25,7 +25,6 @@ local plugins = {
   'tpope/vim-sleuth',
 
   -- lsp configuration
-  -- LSP Support
   { 'neovim/nvim-lspconfig' }, -- Required
 
   -- autocompletion
