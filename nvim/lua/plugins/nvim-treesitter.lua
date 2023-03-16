@@ -16,6 +16,8 @@ treesitter_cfg.setup({
     'sql',
     'tsx',
     'typescript',
+    'markdown',
+    'markdown_inline',
   },
 
   highlight = {
