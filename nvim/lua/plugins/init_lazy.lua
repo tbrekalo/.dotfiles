@@ -27,8 +27,6 @@ local plugins = {
   -- lsp configuration
   -- LSP Support
   { 'neovim/nvim-lspconfig' }, -- Required
-  { 'williamboman/mason.nvim' }, -- Optional
-  { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
   -- autocompletion
   { 'hrsh7th/nvim-cmp' }, -- Required
@@ -51,13 +49,7 @@ local plugins = {
   },
 
   -- formatting
-  {
-    'jay-babu/mason-null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'jose-elias-alvarez/null-ls.nvim',
-    },
-  },
+  'jose-elias-alvarez/null-ls.nvim',
 
   -- status updates for lsp
   { 'j-hui/fidget.nvim', opts = {} },

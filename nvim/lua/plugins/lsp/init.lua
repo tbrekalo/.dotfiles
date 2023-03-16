@@ -23,6 +23,7 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'path' },
   },
 })
 
@@ -32,7 +33,6 @@ cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-require('mason').setup()
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -49,25 +49,36 @@ local on_attach = function(_, bufnr)
   end, opts)
 end
 
-local servers = {
-  clangd = {
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
+local lspconfig = require('lspconfig')
+local configured = { 'cmake', 'cssls', 'html', 'pyright', 'tsserver' }
+for _, lsp in ipairs(configured) do
+  lspconfig[lsp].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+end
+
+-- clangd
+lspconfig['clangd'].setup({
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    if client.name == 'clangd' then
       vim.keymap.set(
         'n',
         '<leader>h',
         '<cmd>ClangdSwitchSourceHeader<cr>',
         { noremap = true, silent = true, buffer = bufnr }
       )
-    end,
-    capabilities = capabilities,
-  },
-  cmake = {},
-  cssls = {},
-  html = {},
-  pyright = {},
-  tsserver = {},
-  lua_ls = {
+    end
+  end,
+  capabilities = capabilities,
+})
+
+lspconfig['lua_ls'].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+
+  settings = {
     Lua = {
       cmd = { 'lua-language-server' },
       format = {
@@ -93,39 +104,54 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-}
-
-local mason_lspconfig = require('mason-lspconfig')
-mason_lspconfig.setup({
-  ensure_installed = vim.tbl_keys(servers),
-})
-
-mason_lspconfig.setup_handlers({
-  function(server_name)
-    require('lspconfig')[server_name].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    })
-  end,
 })
 
 local null_ls = require('null-ls')
-local mason_nls = require('mason-null-ls')
 
-mason_nls.setup({
-  ensure_installed = { 'stylua', 'jq', 'autopep8', 'pylint', 'mypy' },
-  automatic_setup = true,
-})
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
+  sources = {
+    diagnostics.eslint,
+    diagnostics.jsonlint,
+    diagnostics.fish,
+    diagnostics.mypy,
+    diagnostics.pylint,
+    diagnostics.sqlfluff.with({
+      extra_args = { '--dialect', 'mysql' },
+    }),
+    diagnostics.yamllint,
+
+    formatting.autopep8,
+    formatting.fish_indent,
+    formatting.jq,
+    formatting.nimpretty,
+    formatting.prettier,
+    formatting.rustfmt,
+    formatting.sqlfluff.with({
+      extra_args = { '--dialect', 'mysql' },
+    }),
+    formatting.stylua.with({
+      extra_args = {
+        '--indent-type',
+        'Spaces',
+        '--indent-width',
+        '2',
+        '--quote-style',
+        'ForceSingle',
+      },
+    }),
+  },
+
   on_attach = function(_, bufnr)
-    vim.keymap.set({ 'n' }, '<leader>f', function()
+    vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
       vim.lsp.buf.format({
         async = true,
+        timeout = 2000,
       })
     end, { noremap = true, silent = true, buffer = bufnr })
   end,
-})
 
-mason_nls.setup_handlers({})
+  root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.git', '.pyproject.toml'),
+})
