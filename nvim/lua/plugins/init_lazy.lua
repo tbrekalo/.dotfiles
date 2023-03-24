@@ -22,7 +22,6 @@ local plugins = {
 
   -- automatic indentation and blanklines
   { 'lukas-reineke/indent-blankline.nvim', opts = {} },
-  'tpope/vim-sleuth',
 
   -- lsp configuration
   { 'neovim/nvim-lspconfig' }, -- Required
