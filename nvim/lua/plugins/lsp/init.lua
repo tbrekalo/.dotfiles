@@ -118,7 +118,6 @@ null_ls.setup({
     diagnostics.fish,
     diagnostics.mypy,
     diagnostics.pylint,
-    diagnostics.sqlfluff,
     diagnostics.yamllint,
 
     formatting.autopep8,
@@ -126,7 +125,6 @@ null_ls.setup({
     formatting.jq,
     formatting.prettier,
     formatting.rustfmt,
-    formatting.sqlfluff,
     formatting.stylua,
   },
 
