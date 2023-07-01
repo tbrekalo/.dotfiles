@@ -9,7 +9,7 @@ treesitter_cfg.setup({
     'cpp',
     'css',
     'html',
-    'jabascript',
+    'javascript',
     'json',
     'lua',
     'markdown',
