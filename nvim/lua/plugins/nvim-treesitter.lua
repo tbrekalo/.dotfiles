@@ -9,15 +9,16 @@ treesitter_cfg.setup({
     'cpp',
     'css',
     'html',
+    'jabascript',
     'json',
     'lua',
+    'markdown',
+    'markdown_inline',
     'python',
     'scss',
     'sql',
     'tsx',
     'typescript',
-    'markdown',
-    'markdown_inline',
   },
 
   highlight = {
