@@ -124,7 +124,6 @@ null_ls.setup({
     formatting.isort,
     formatting.jq,
     formatting.prettier,
-    formatting.rustfmt,
     formatting.stylua,
   },
 
