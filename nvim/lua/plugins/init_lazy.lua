@@ -50,7 +50,7 @@ local plugins = {
   'jose-elias-alvarez/null-ls.nvim',
 
   -- status updates for lsp
-  { 'j-hui/fidget.nvim', opts = {} },
+  { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
   -- additional lua configuration
   { 'folke/neodev.nvim', opts = {} },
