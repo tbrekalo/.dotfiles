@@ -3,6 +3,10 @@ if not is_treesitter_ok then
   return
 end
 
+-- folding
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
 treesitter_cfg.setup({
   ensure_installed = {
     'cmake',
@@ -38,4 +42,11 @@ treesitter_cfg.setup({
   autotag = {
     enable = true,
   },
+})
+
+local fold_group = vim.api.nvim_create_augroup('FoldGroup', {})
+vim.api.nvim_create_autocmd({ 'BufReadPost', 'FileReadPost' }, {
+  group = fold_group,
+  pattern = '*',
+  command = 'normal zR',
 })

@@ -47,6 +47,7 @@ g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
+
 local terminal_group = vim.api.nvim_create_augroup('TerminalGroup', {})
 vim.api.nvim_create_autocmd('TermOpen', {
   group = terminal_group,
@@ -62,3 +63,4 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'help',
   command = 'wincmd L',
 })
+
