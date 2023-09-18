@@ -50,7 +50,17 @@ local on_attach = function(_, bufnr)
 end
 
 local lspconfig = require('lspconfig')
-local configured = { 'bashls', 'cmake', 'cssls', 'html', 'pyright', 'tsserver' }
+local configured = {
+  'bashls',
+  'cmake',
+  'cssls',
+  'dockerls',
+  'eslint',
+  'html',
+  'pyright',
+  'tsserver',
+}
+
 for _, lsp in ipairs(configured) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
