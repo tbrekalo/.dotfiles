@@ -21,7 +21,7 @@ local plugins = {
   'ruifm/gitlinker.nvim',
 
   -- automatic indentation and blanklines
-  { 'lukas-reineke/indent-blankline.nvim', opts = {} },
+  { 'lukas-reineke/indent-blankline.nvim', main = "ibl", opts = {} },
 
   -- lsp configuration
   { 'neovim/nvim-lspconfig' }, -- Required
