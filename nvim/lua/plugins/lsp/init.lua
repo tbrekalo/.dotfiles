@@ -115,37 +115,3 @@ lspconfig['lua_ls'].setup({
     },
   },
 })
-
-local null_ls = require('null-ls')
-
-local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-
-null_ls.setup({
-  sources = {
-    diagnostics.eslint,
-    diagnostics.jsonlint,
-    diagnostics.fish,
-    diagnostics.mypy,
-    diagnostics.pylint,
-    diagnostics.yamllint,
-
-    formatting.autopep8,
-    formatting.isort,
-    formatting.jq,
-    formatting.prettier,
-    formatting.shfmt,
-    formatting.stylua,
-  },
-
-  on_attach = function(_, bufnr)
-    vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
-      vim.lsp.buf.format({
-        async = true,
-        timeout = 2000,
-      })
-    end, { noremap = true, silent = true, buffer = bufnr })
-  end,
-
-  root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.git', 'pyproject.toml'),
-})

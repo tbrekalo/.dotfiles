@@ -25,6 +25,7 @@ local plugins = {
 
   -- lsp configuration
   { 'neovim/nvim-lspconfig' }, -- Required
+  { 'williamboman/mason.nvim' },
 
   -- autocompletion
   { 'hrsh7th/nvim-cmp' }, -- Required
@@ -45,9 +46,6 @@ local plugins = {
       end,
     },
   },
-
-  -- formatting
-  'jose-elias-alvarez/null-ls.nvim',
 
   -- status updates for lsp
   { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
