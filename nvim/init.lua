@@ -3,7 +3,7 @@ require('core.keybingins')
 
 require('plugins.init_lazy')
 
+require('plugins.lsp')
+require('plugins.luasnip')
 require('plugins.nvim-treesitter')
 require('plugins.telescope')
-require('plugins.luasnip')
-require('plugins.lsp')
