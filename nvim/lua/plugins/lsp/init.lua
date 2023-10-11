@@ -115,3 +115,71 @@ lspconfig['lua_ls'].setup({
     },
   },
 })
+
+local efm_bash = {
+  require('efmls-configs.formatters.shfmt'),
+}
+
+local efm_cmake = {
+  require('efmls-configs.linters.cmake_lint'),
+}
+
+local efm_docker = {
+  require('efmls-configs.linters.hadolint'),
+}
+
+local efm_javascript = {
+  require('efmls-configs.linters.eslint'),
+  require('efmls-configs.formatters.prettier'),
+}
+
+local efm_json = {
+  require('efmls-configs.linters.jq'),
+  require('efmls-configs.formatters.jq'),
+}
+
+local efm_markdown = {
+  require('efmls-configs.linters.markdownlint'),
+}
+
+local efm_lua = {
+  require('efmls-configs.linters.luacheck'),
+  require('efmls-configs.formatters.stylua'),
+}
+
+local efm_python = {
+  require('efmls-configs.formatters.isort'),
+  require('efmls-configs.formatters.autopep8'),
+  require('efmls-configs.linters.pylint'),
+}
+
+local efm_text = {
+  require('efmls-configs.linters.vale'),
+}
+
+local efm_typescript = {
+  require('efmls-configs.linters.eslint'),
+  require('efmls-configs.formatters.prettier'),
+}
+
+lspconfig.efm.setup({
+  init_options = {
+    documentFormatting = true,
+    documentRangeFormatting = true,
+  },
+  settings = {
+    rootMarkers = { '.git/' },
+    languages = {
+      bash = efm_bash,
+      cmake = efm_cmake,
+      docker = efm_docker,
+      javascript = efm_javascript,
+      json = efm_json,
+      markdown = efm_markdown,
+      lua = efm_lua,
+      python = efm_python,
+      text = efm_text,
+      typescript = efm_typescript,
+    },
+  },
+})
