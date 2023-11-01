@@ -82,6 +82,10 @@ lspconfig['clangd'].setup({
     end
   end,
   capabilities = capabilities,
+  cmd = {
+    'clangd',
+    '--offset-encoding=utf-16',
+  },
 })
 
 lspconfig['lua_ls'].setup({
