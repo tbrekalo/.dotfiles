@@ -73,14 +73,12 @@ end
 lspconfig['clangd'].setup({
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    if client.name == 'clangd' then
-      vim.keymap.set(
-        'n',
-        '<leader>h',
-        '<cmd>ClangdSwitchSourceHeader<cr>',
-        { noremap = true, silent = true, buffer = bufnr }
-      )
-    end
+    vim.keymap.set(
+      'n',
+      '<leader>h',
+      '<cmd>ClangdSwitchSourceHeader<cr>',
+      { noremap = true, silent = true, buffer = bufnr }
+    )
   end,
   capabilities = capabilities,
   cmd = {
