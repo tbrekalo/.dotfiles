@@ -58,6 +58,7 @@ local configured = {
   'eslint',
   'html',
   'pyright',
+  'ruff_lsp',
   'tsserver',
 }
 
@@ -154,13 +155,6 @@ local efm_lua = {
 local efm_python = {
   require('efmls-configs.formatters.isort'),
   require('efmls-configs.formatters.black'),
-  require('efmls-configs.linters.mypy'),
-  {
-    lintCommand = 'ruff',
-    lintStdin = true,
-    lintFormats = { 'stdin:%l:%c: %t%n %m' },
-    rootMarkers = { 'pyproject.toml', 'setup.cfg', 'setup.py' },
-  },
 }
 
 local efm_text = {
