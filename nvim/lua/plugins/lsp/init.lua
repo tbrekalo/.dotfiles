@@ -54,7 +54,6 @@ local configured = {
   'bashls',
   'cmake',
   'cssls',
-  'dockerls',
   'eslint',
   'html',
   'pyre',
