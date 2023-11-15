@@ -19,6 +19,7 @@ treesitter_cfg.setup({
     'markdown',
     'markdown_inline',
     'python',
+    'rust',
     'scss',
     'sql',
     'tsx',

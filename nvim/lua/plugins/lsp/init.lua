@@ -59,6 +59,7 @@ local configured = {
   'pyre',
   'pyright',
   'ruff_lsp',
+  'rust_analyzer',
   'tsserver',
 }
 
@@ -168,6 +169,10 @@ local efm_python = {
   require('efmls-configs.formatters.black'),
 }
 
+local efm_rust = {
+  require('efmls-configs.formatters.rustfmt'),
+}
+
 local efm_text = {
   require('efmls-configs.linters.vale'),
 }
@@ -190,9 +195,10 @@ lspconfig.efm.setup({
       docker = efm_docker,
       javascript = efm_javascript,
       json = efm_json,
-      markdown = efm_markdown,
       lua = efm_lua,
+      markdown = efm_markdown,
       python = efm_python,
+      rust = efm_rust,
       text = efm_text,
       typescript = efm_typescript,
     },
