@@ -51,13 +51,13 @@ end
 
 local lspconfig = require('lspconfig')
 local configured = {
+  'basedpyright',
   'bashls',
   'cmake',
   'cssls',
   'eslint',
   'html',
   'pyre',
-  'pyright',
   'ruff_lsp',
   'rust_analyzer',
   'tsserver',
@@ -164,11 +164,6 @@ local efm_lua = {
   require('efmls-configs.formatters.stylua'),
 }
 
-local efm_python = {
-  require('efmls-configs.formatters.isort'),
-  require('efmls-configs.formatters.black'),
-}
-
 local efm_rust = {
   require('efmls-configs.formatters.rustfmt'),
 }
@@ -197,7 +192,6 @@ lspconfig.efm.setup({
       json = efm_json,
       lua = efm_lua,
       markdown = efm_markdown,
-      python = efm_python,
       rust = efm_rust,
       text = efm_text,
       typescript = efm_typescript,
