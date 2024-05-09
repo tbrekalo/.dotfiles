@@ -8,6 +8,16 @@ telescope.setup({
     file_ignore_patterns = {
       'venv',
     },
+    vimgrep_arguments = {
+      'rg',
+      '--pcre2',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+    },
   },
   extensions = {
     fzf = {
