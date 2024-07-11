@@ -23,15 +23,15 @@ local plugins = {
   -- automatic indentation and blanklines
   {
     'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
+    main = 'ibl',
     opts = {},
   },
 
   -- lsp configuration
-  { 'neovim/nvim-lspconfig', },
+  { 'neovim/nvim-lspconfig' },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
-  { 'creativenull/efmls-configs-nvim', },
+  { 'creativenull/efmls-configs-nvim' },
 
   -- autocompletion
   { 'hrsh7th/nvim-cmp' }, -- Required
@@ -106,11 +106,7 @@ local plugins = {
       'nvim-lua/plenary.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        build = [[
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release &&
-          cmake --build build --config Release &&
-          cmake --install build --prefix build
-        ]],
+        build = 'make',
       },
     },
   },
