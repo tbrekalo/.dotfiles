@@ -57,10 +57,9 @@ local configured = {
   'cssls',
   'eslint',
   'html',
-  'pyre',
   'ruff_lsp',
   'rust_analyzer',
-  'tsserver',
+  'ts_ls',
 }
 
 for _, lsp in ipairs(configured) do
@@ -86,19 +85,6 @@ lspconfig['clangd'].setup({
     'clangd',
     '--offset-encoding=utf-16',
   },
-})
-
-lspconfig['pyre'].setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  root_dir = function(file_name)
-    local util = require('lspconfig.util')
-    return util.root_pattern(unpack({
-      'pyproject.toml',
-      'setup.cfg',
-      'setup.py',
-    }))(file_name)
-  end,
 })
 
 lspconfig['lua_ls'].setup({
