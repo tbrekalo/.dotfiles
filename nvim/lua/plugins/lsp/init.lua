@@ -56,6 +56,7 @@ local configured = {
   'cmake',
   'cssls',
   'eslint',
+  'gopls',
   'html',
   'ruff_lsp',
   'rust_analyzer',
