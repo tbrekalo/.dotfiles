@@ -58,7 +58,7 @@ local configured = {
   'eslint',
   'gopls',
   'html',
-  'ruff_lsp',
+  'ruff',
   'rust_analyzer',
   'ts_ls',
 }
