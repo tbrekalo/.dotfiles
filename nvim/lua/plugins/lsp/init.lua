@@ -51,12 +51,13 @@ end
 
 local lspconfig = require('lspconfig')
 local configured = {
-  'basedpyright',
+  -- 'basedpyright',
   'bashls',
   'cmake',
   'cssls',
   'eslint',
   'html',
+  'pyright',
   'ruff_lsp',
   'rust_analyzer',
   'ts_ls',
