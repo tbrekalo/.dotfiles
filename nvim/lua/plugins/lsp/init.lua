@@ -58,7 +58,7 @@ local configured = {
   'eslint',
   'html',
   'pyright',
-  'ruff_lsp',
+  'ruff',
   'rust_analyzer',
   'ts_ls',
 }
