@@ -39,6 +39,7 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -51,13 +52,11 @@ end
 
 local lspconfig = require('lspconfig')
 local configured = {
-  -- 'basedpyright',
   'bashls',
   'cmake',
   'cssls',
   'eslint',
   'html',
-  'pyright',
   'ruff',
   'rust_analyzer',
   'ts_ls',
@@ -116,6 +115,21 @@ lspconfig['lua_ls'].setup({
         preloadFileSize = 1000,
       },
       telemetry = { enable = false },
+    },
+  },
+})
+
+require('lspconfig').pyright.setup({
+  settings = {
+    pyright = {
+      -- Using Ruff's import organizer
+      disableOrganizeImports = true,
+    },
+    python = {
+      analysis = {
+        -- Ignore all files for analysis to exclusively use Ruff for linting
+        ignore = { '*' },
+      },
     },
   },
 })
