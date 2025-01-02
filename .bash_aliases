@@ -14,3 +14,6 @@ alias pgrep="grep --color=auto -P"
 
 # git
 alias lg='lazygit'
+
+# python
+alias bactivate='. venv/bin/activate || . .venv/bin/activate'
