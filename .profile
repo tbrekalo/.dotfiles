@@ -1,11 +1,10 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
 export EDITOR="nvim"
 
 if [ $(uname) = "Darwin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
     export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
