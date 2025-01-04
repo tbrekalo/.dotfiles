@@ -60,14 +60,14 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-tmux has-session -t main
+tmux has-session -t main 2> /dev/null
 if [ $? != 0 ]; then
     tmux new -s main -dc ~
 
     tmux splitw -dvt main:0. -l5 htop
-    tmux splitw -dht main:0.1
     if [ $(uname) = "Darwin" ] && $(command -v ollama > /dev/null); then
         tmux send-keys -t main:0.0 "ollama run qwen2.5-coder:7b" Enter
+        tmux splitw -dht main:0.1
     fi
 fi
 
