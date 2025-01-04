@@ -5,7 +5,7 @@ export LC_ALL="en_US.UTF-8"
 
 export EDITOR="nvim"
 
-if [ $(uname)="Darwin" ]; then
+if [ $(uname) = "Darwin" ]; then
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
     export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
@@ -67,7 +67,7 @@ if [ $? != 0 ]; then
 
     tmux splitw -dvt main:0. -l5 htop
     tmux splitw -dht main:0.1
-    if [ $(uname)="Darwin" ] && $(command -v ollama > /dev/null); then
+    if [ $(uname) = "Darwin" ] && $(command -v ollama > /dev/null); then
         tmux send-keys -t main:0.0 "ollama run qwen2.5-coder:7b" Enter
     fi
 fi
