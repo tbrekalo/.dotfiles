@@ -56,7 +56,7 @@ fi
 if [ $(uname) = "Darwin" ]; then
     test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
     [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-    eval "$(fzf --bash)"
+    [[ -f "/opt/homebrew/bin/fzf" ]] && eval "$(fzf --bash)"
 fi
 
 . "$HOME/.cargo/env"
