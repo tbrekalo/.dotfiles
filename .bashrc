@@ -58,5 +58,3 @@ if [ $(uname) = "Darwin" ]; then
     [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
     [[ -f "/opt/homebrew/bin/fzf" ]] && eval "$(fzf --bash)"
 fi
-
-. "$HOME/.cargo/env"
