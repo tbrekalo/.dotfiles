@@ -8,6 +8,9 @@ vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 treesitter_cfg.setup({
+  auto_install = true,
+  sync_install = false,
+  ignore_install = {},
   ensure_installed = {
     'cmake',
     'cpp',
@@ -24,6 +27,12 @@ treesitter_cfg.setup({
     'sql',
     'tsx',
     'typescript',
+  },
+
+  modules = {
+    'autotag',
+    'highlight',
+    'incremental_selection',
   },
 
   highlight = {
