@@ -66,7 +66,10 @@ if [ $? != 0 ]; then
 
     tmux splitw -dvt main:0. -l5 htop
     if [ $(uname) = "Darwin" ] && $(command -v ollama > /dev/null); then
-        tmux send-keys -t main:0.0 "ollama run qwen2.5-coder:7b" Enter "C-l"
-        tmux splitw -dvt main:0.0 -c $HOME
+        tmux send-keys -t main:0.0 "ollama run llama3.2:3b" Enter "C-l"
+        tmux splitw -dvt main:0.0 -c ~
     fi
+
+    tmux new-window -dc ~/.dotfiles -n dotfiles nvim .profile .bashrc .bashaliases
+    tmux splitw -dht main:1. -c ~/.dotfiles
 fi
