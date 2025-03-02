@@ -29,29 +29,10 @@ local plugins = {
 
   -- lsp configuration
   { 'neovim/nvim-lspconfig' },
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
   { 'creativenull/efmls-configs-nvim' },
 
   -- autocompletion
-  { 'hrsh7th/nvim-cmp' }, -- Required
-  { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-  { 'hrsh7th/cmp-buffer' }, -- Optional
-  { 'hrsh7th/cmp-path' }, -- Optional
-  { 'saadparwaiz1/cmp_luasnip' }, -- Optional
-  { 'hrsh7th/cmp-nvim-lua' }, -- Optional
-
-  -- snippets
-  {
-    'L3MON4D3/LuaSnip',
-    build = 'make install_jsregexp',
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      config = function()
-        require('luasnip.loaders.from_vscode').lazy_load()
-      end,
-    },
-  },
+  { 'saghen/blink.cmp', version = '*' },
 
   -- status updates for lsp
   { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
@@ -87,9 +68,6 @@ local plugins = {
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = { 'windwp/nvim-ts-autotag' },
-    config = function()
-      vim.cmd('TSUpdateSync')
-    end,
   },
 
   {
