@@ -15,7 +15,7 @@ if [ $(uname) = "Darwin" ]; then
     export MANPATH="/opt/homebrew/opt/grep/libexec/gnuman:$MANPATH"
 
     export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
-    export MANPATH="/opt/homebrew/opt/gnu-getopt/man:$MANPATH"
+    export MANPATH="/opt/homebrew/opt/gnu-getopt/share/man:$MANPATH"
 
     export PATH="/opt/homebrew/opt/gnu-indent/libexec/gnubin:$PATH"
     export MANPATH="/opt/homebrew/opt/gnu-indent/libexec/gnuman:$MANPATH"
