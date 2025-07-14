@@ -66,6 +66,7 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+umask 0022
 tmux has-session -t main 2> /dev/null
 if [ $? != 0 ]; then
     tmux new -s main -dc ~
