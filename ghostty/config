@@ -1,0 +1,26 @@
+background-blur = 40
+background-opacity = 0.95
+
+confirm-close-surface = false
+
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
+macos-option-as-alt = left
+macos-icon = blueprint
+
+macos-auto-secure-input
+macos-secure-input-indication
+macos-titlebar-proxy-icon = hidden
+macos-titlebar-style = tabs
+
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 2
+
+shell-integration = detect
+shell-integration-features = no-cursor,sudo,no-title
+
+theme = nordfox
+
+window-save-state = always
+window-colorspace = "display-p3"
