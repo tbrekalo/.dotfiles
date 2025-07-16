@@ -20,6 +20,7 @@ mouse-scroll-multiplier = 2
 shell-integration = detect
 shell-integration-features = no-cursor,sudo,no-title
 
+term = xterm-ghostty
 theme = nordfox
 
 window-save-state = always
