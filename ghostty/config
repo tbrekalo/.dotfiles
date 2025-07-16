@@ -18,7 +18,7 @@ mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
 
 shell-integration = detect
-shell-integration-features = no-cursor,sudo,no-title
+shell-integration-features = cursor,sudo,title
 
 term = xterm-ghostty
 theme = nordfox
