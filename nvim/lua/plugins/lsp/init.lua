@@ -42,7 +42,6 @@ local configured = {
   'cssls',
   'eslint',
   'html',
-  'pyre',
   'ruff',
   'rust_analyzer',
   'ts_ls',
