@@ -5,32 +5,16 @@ export EDITOR="nvim"
 
 if [ $(uname) = "Darwin" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
-    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
-    export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
+    for dir in $(brew --prefix)/opt/*/libexec/gnubin; do
+        export PATH="$dir:$PATH"
+    done;
 
-    export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/grep/libexec/gnuman:$MANPATH"
-
-    export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
-    export MANPATH="/opt/homebrew/opt/gnu-getopt/share/man:$MANPATH"
-
-    export PATH="/opt/homebrew/opt/gnu-indent/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/gnu-indent/libexec/gnuman:$MANPATH"
-
-    export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/make/libexec/gnuman:$MANPATH"
-
-    export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/gnu-sed/libexec/gnuman:$MANPATH"
-
-    export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-    export MANPATH="/opt/homebrew/opt/gnu-tar/libexec/gnuman:$MANPATH"
+    for dir in $(brew --prefix)/opt/*/libexec/gnuman; do
+        export MANPATH="$dir:$MANPATH"
+    done;
 
     export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
-
     export PATH="/opt/homebrew/opt/ccache/libexec:$PATH"
     export MallocNanoZone=0
 
