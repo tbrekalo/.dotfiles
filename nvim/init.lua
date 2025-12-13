@@ -1,13 +1,3 @@
-local function map(m, k, v, opts)
-  opts = opts or { silent = true }
-  vim.keymap.set(m, k, v, { silent = true })
-end
-
--- refresh file
-vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
-  command = 'checktime',
-})
-
 -- map <leader> to space
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -30,8 +20,8 @@ vim.o.smarttab = true
 vim.o.cindent = true
 vim.o.autoindent = true
 vim.o.wrap = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
 vim.o.softtabstop = -1 -- If negative, shiftwidth value is used
 vim.o.list = true
 vim.o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
@@ -52,9 +42,10 @@ vim.o.backupdir = '/tmp/'
 vim.o.directory = '/tmp/'
 vim.o.undodir = '/tmp/'
 
-map('n', 'gn', '<cmd>tabnew<cr>')
-map('n', 'gx', '<cmd>tabclose<cr>')
+vim.keymap.set('n', 'gn', vim.cmd.tabnew, { silent = true })
+vim.keymap.set('n', 'gx', vim.cmd.tabclose, { silent = true })
 
+-- lazy setup
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -70,7 +61,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   { 'tpope/vim-fugitive' },
-  { 'neovim/nvim-lspconfig' },
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua', -- only load on lua files
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
   {
     'saghen/blink.cmp',
     version = '*',
@@ -84,6 +83,17 @@ require('lazy').setup({
         implementation = 'lua',
         prebuilt_binaries = {
           download = true,
+        },
+      },
+      sources = {
+        default = { 'lsp', 'path', 'lazydev', 'buffer' },
+        providers = {
+          lazydev = {
+            name = 'LazyDev',
+            module = 'lazydev.integrations.blink',
+            score_offset = 100,
+          },
+          cmdline = { min_keyword_length = 2 },
         },
       },
     },
@@ -158,66 +168,46 @@ require('lazy').setup({
   },
 })
 
-local blink = require('blink.cmp')
-local capabilities = blink.get_lsp_capabilities()
-local on_attach = function(_, bufnr)
-  local opts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-  vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
-  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
-  vim.keymap.set('n', '[d', function()
-    vim.diagnostic.jump({ count = 1, float = true })
-  end, opts)
-  vim.keymap.set('n', ']d', function()
-    vim.diagnostic.jump({ count = -1, float = true })
-  end, opts)
-  vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
-    vim.lsp.buf.format({
-      async = true,
-    })
-  end, opts)
-end
-
-local lspconfig = require('lspconfig')
-local configured = {
-  'bashls',
-  'cmake',
-  'ruff',
-}
-
-for _, lsp in ipairs(configured) do
-  lspconfig[lsp].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-end
-
-lspconfig['clangd'].setup({
-  on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    vim.keymap.set(
-      'n',
-      '<leader>h',
-      '<cmd>ClangdSwitchSourceHeader<cr>',
-      { noremap = true, silent = true, buffer = bufnr }
-    )
+-- lsp cconfig
+vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('AuGroupLspAttach', { clear = true }),
+  callback = function(args)
+    local opts = { noremap = true, silent = true, buffer = args.data.bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '[d', function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, opts)
+    vim.keymap.set('n', ']d', function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
+      vim.lsp.buf.format({
+        async = true,
+      })
+    end, opts)
   end,
-
-  capabilities = capabilities,
-  cmd = {
-    'clangd',
-    '--clang-tidy',
-    '--offset-encoding=utf-16',
-  },
 })
 
-lspconfig['lua_ls'].setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-
+-- lua
+vim.lsp.config('lua_ls', {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_markers = {
+    '.luarc.json',
+    '.luarc.jsonc',
+    '.luacheckrc',
+    '.stylua.toml',
+    'stylua.toml',
+    'selene.toml',
+    'selene.yml',
+    '.git',
+  },
   settings = {
     Lua = {
       cmd = { 'lua-language-server' },
@@ -228,7 +218,7 @@ lspconfig['lua_ls'].setup({
       runtime = {
         version = 'LuaJIT',
       },
-      completion = { enable = true, callSnippet = 'Both' },
+      completion = { enable = true },
       diagnostics = {
         enable = true,
         globals = { 'vim', 'describe' },
@@ -237,7 +227,6 @@ lspconfig['lua_ls'].setup({
         library = {
           vim.api.nvim_get_runtime_file('', true),
         },
-        -- adjust these two values if your performance is not optimal
         maxPreload = 2000,
         preloadFileSize = 1000,
       },
@@ -245,25 +234,76 @@ lspconfig['lua_ls'].setup({
     },
   },
 })
+vim.lsp.enable('lua_ls')
 
-lspconfig['pyright'].setup({
+vim.lsp.config('stylua', {
+  cmd = { 'stylua', '--lsp' },
+  filetypes = { 'lua' },
+  root_markers = {
+    '.stylua.toml',
+    'stylua.toml',
+  },
+})
+vim.lsp.enable('stylua')
+
+-- python
+vim.lsp.config('pyright', {
+  cmd = { 'pyright-langserver', '--stdio' },
+  filetypes = { 'python' },
+  root_markers = {
+    'pyproject.toml',
+    'setup.py',
+    'setup.cfg',
+    'requirements.txt',
+    '.git',
+  },
   settings = {
-    pyright = {
-      -- Using Ruff's import organizer
-      disableOrganizeImports = true,
-    },
     python = {
       analysis = {
-        -- Ignore all files for analysis to exclusively use Ruff for linting
         ignore = { '*' },
       },
     },
   },
 })
+vim.lsp.enable('pyright')
 
-map('n', 'ff', '<cmd>Telescope find_files<cr>')
-map('n', 'fh', '<cmd>Telescope find_files hidden=true<cr>')
-map('n', 'fb', '<cmd>Telescope buffers<cr>')
-map('n', 'fd', '<cmd>Telescope diagnostics bufnr=0<cr>')
-map('n', 'rg', '<cmd>Telescope live_grep<cr>')
-map('n', 'ss', '<cmd>Telescope grep_string<cr>')
+vim.lsp.config('ruff', {
+  cmd = { 'ruff', 'server' },
+  filetypes = { 'python' },
+  root_markers = { { 'pyproject.toml', 'ruff.toml', '.ruff.toml' }, '.git' },
+})
+vim.lsp.enable('ruff')
+
+-- c/cpp
+vim.lsp.config('clangd', {
+  cmd = { 'clangd', '--clang-tidy' },
+  filetypes = { 'c', 'cpp' },
+  root_markers = { { '.clangd', '.clang-format', '.clang-tidy' }, 'compile_commands.json', '.git' },
+  on_attach = function(client, bufnr)
+    local switch_header_source = function()
+      local method_name = 'textDocument/switchSourceHeader'
+      local params = vim.lsp.util.make_text_document_params(bufnr)
+      client:request(method_name, params, function(err, result)
+        if err then
+          error(tostring(err))
+        end
+        if not result then
+          vim.notify('Didn\'t find corresponding header/source file.')
+          return
+        end
+        vim.cmd.edit(vim.uri_to_fname(result))
+      end)
+    end
+
+    vim.keymap.set('n', '<leader>h', switch_header_source, { noremap = true, silent = true, buffer = bufnr })
+  end,
+})
+vim.lsp.enable('clangd')
+
+-- telescope keybindings
+vim.keymap.set('n', 'ff', '<cmd>Telescope find_files<cr>', { silent = true })
+vim.keymap.set('n', 'fh', '<cmd>Telescope find_files hidden=true<cr>', { silent = true })
+vim.keymap.set('n', 'fb', '<cmd>Telescope buffers<cr>', { silent = true })
+vim.keymap.set('n', 'fd', '<cmd>Telescope diagnostics bufnr=0<cr>', { silent = true })
+vim.keymap.set('n', 'rg', '<cmd>Telescope live_grep<cr>', { silent = true })
+vim.keymap.set('n', 'ss', '<cmd>Telescope grep_string<cr>', { silent = true })
