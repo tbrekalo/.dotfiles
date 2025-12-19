@@ -42,6 +42,7 @@ vim.o.backupdir = '/tmp/'
 vim.o.directory = '/tmp/'
 vim.o.undodir = '/tmp/'
 
+-- tab settings
 vim.keymap.set('n', 'gn', vim.cmd.tabnew, { silent = true })
 vim.keymap.set('n', 'gx', vim.cmd.tabclose, { silent = true })
 
@@ -260,7 +261,9 @@ vim.lsp.config('pyright', {
   settings = {
     python = {
       analysis = {
-        ignore = { '*' },
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = 'openFilesOnly',
       },
     },
   },
@@ -271,6 +274,7 @@ vim.lsp.config('ruff', {
   cmd = { 'ruff', 'server' },
   filetypes = { 'python' },
   root_markers = { { 'pyproject.toml', 'ruff.toml', '.ruff.toml' }, '.git' },
+  settings = {},
 })
 vim.lsp.enable('ruff')
 
