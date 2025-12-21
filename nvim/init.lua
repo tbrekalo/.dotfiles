@@ -48,7 +48,7 @@ vim.keymap.set('n', 'gx', vim.cmd.tabclose, { silent = true })
 
 -- lazy setup
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',
