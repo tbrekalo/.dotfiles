@@ -15,7 +15,7 @@ vim.o.autoread = true
 vim.o.number = true
 
 -- Better editing experience
-vim.o.expandtab = false
+vim.o.expandtab = true
 vim.o.smarttab = true
 vim.o.cindent = true
 vim.o.autoindent = true
