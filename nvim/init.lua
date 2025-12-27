@@ -14,7 +14,7 @@ vim.o.updatetime = 200
 vim.o.autoread = true
 vim.o.number = true
 
--- Better editing experience
+-- better editing experience
 vim.o.expandtab = true
 vim.o.smarttab = true
 vim.o.cindent = true
@@ -45,6 +45,16 @@ vim.o.undodir = '/tmp/'
 -- tab settings
 vim.keymap.set('n', 'gn', vim.cmd.tabnew, { silent = true })
 vim.keymap.set('n', 'gx', vim.cmd.tabclose, { silent = true })
+
+-- movement
+vim.keymap.set('n', '<C-u>', function()
+  vim.cmd('normal! \x15')
+  vim.cmd('normal! zz')
+end)
+vim.keymap.set('n', '<C-d>', function()
+  vim.cmd('normal! \x04')
+  vim.cmd('normal! zz')
+end)
 
 -- lazy setup
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
