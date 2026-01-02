@@ -1,4 +1,10 @@
-export PS1="\[\033[38;5;28m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;34m\]\h\[$(tput sgr0)\] \W \[$(tput sgr0)\]\[\033[38;5;9m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\[$(tput sgr0)\] "
+# Custom Multi-line PS1
+export PS1="\[\033[1;38;5;120m\]\u@\h:"\
+"\[\033[0;38;5;15m\]\w"\
+"\[\033[38;5;210m\]\$(git branch 2>/dev/null | sed -n 's/^\* \(.*\)/ (\1)/p')"\
+"\[\033[0m\] "\
+"\$(if [ \$? -eq 0 ]; then echo '\[\033[32m\]'; else echo '\[\033[31m\]'; fi)> "\
+"\[\033[0m\]"
 
 # If not running interactively, don't do anything
 case $- in
