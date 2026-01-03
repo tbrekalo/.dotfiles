@@ -9,10 +9,10 @@ for file in "${FILES[@]}"; do
     source="${ROOT}/$file" 
     target="${HOME}/$file"
 
-    [[ -L "${target}"  && "$(readlink ${target})" == "${source}" ]] && "already linked: ${file}" && continue
+    [[ -L "${target}" && "$(readlink "${target}")" == "${source}" ]] && echo "already linked: ${file}" && continue
     if [[ -e "${target}" || -L "${target}" ]]; then
         mv "${target}" "${target}.old"
-        echo "backup: ${target} -> ${taret}.old"
+        echo "backup: ${target} -> ${target}.old"
     fi
 
     ln -s "${source}" "${target}"
