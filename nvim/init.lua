@@ -149,7 +149,7 @@ require('lazy').setup({
     dependencies = { 'windwp/nvim-ts-autotag' },
 
     build = ':TSUpdate',
-    main = 'nvim-treesitter.config',
+    main = 'nvim-treesitter.configs',
 
     opts = {
       ensure_installed = { 'cmake', 'cpp', 'json', 'lua', 'python' },
