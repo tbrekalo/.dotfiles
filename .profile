@@ -38,7 +38,7 @@ if [ $? != 0 ]; then
 
     tmux splitw -dvt main:0. -l5 htop
     if [ $(uname) = "Darwin" ] && $(command -v ollama > /dev/null); then
-        tmux send-keys -t main:0.0 "ollama run gemma3:12b" Enter "C-l"
+        tmux send-keys -t main:0.0 "ollama run ministral3:8b" Enter "C-l"
         tmux splitw -dvt main:0.0 -c ~
     fi
 
