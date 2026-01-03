@@ -109,7 +109,6 @@ require('lazy').setup({
       },
     },
   },
-  { 'windwp/nvim-autopairs', event = 'InsertEnter', config = true },
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
@@ -147,27 +146,26 @@ require('lazy').setup({
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = { 'windwp/nvim-ts-autotag' },
-
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.config',
+    config = function()
+      local treesitter = require('nvim-treesitter')
+      local languages = { 'cmake', 'cpp', 'json', 'lua', 'python' }
 
-    opts = {
-      ensure_installed = { 'cmake', 'cpp', 'json', 'lua', 'python' },
-      auto_install = true,
-
-      modules = { 'autotag', 'highlight', 'incremental_selection' },
-      autotag = { enable = true },
-      highlight = { enable = true },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<leader>t',
-          node_incremental = 'tn',
-          scope_incremental = 'tg',
-          node_decremental = 'tp',
-        },
-      },
-    },
+      treesitter.install(languages)
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('AuGroupTreesitterSetup', { clear = true }),
+        pattern = languages,
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
   },
   {
     'EdenEast/nightfox.nvim',
