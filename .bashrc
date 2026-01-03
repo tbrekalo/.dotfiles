@@ -1,70 +1,39 @@
-# Custom Multi-line PS1
-export PS1="\[\033[1;38;5;120m\]\u@\h:"\
-"\[\033[0;38;5;15m\]\w"\
-"\[\033[38;5;210m\]\$(git branch 2>/dev/null | sed -n 's/^\* \(.*\)/ (\1)/p')"\
-"\[\033[0m\] "\
-"\$(if [ \$? -eq 0 ]; then echo '\[\033[32m\]'; else echo '\[\033[31m\]'; fi)> "\
-"\[\033[0m\]"
+# Early exit for non-interactive shells
+case $- in *i*) ;; *) return;; esac
 
-# If not running interactively, don't do anything
-case $- in
-  *i*) ;;
-    *) return;;
-esac
+# PATH setup
+PATH=""
+for dir in ~/.local/bin /usr/local/bin /usr/local/sbin /usr/bin /usr/sbin /bin /sbin; do
+    [[ -d $dir ]] && PATH="${PATH:+$PATH:}$dir"
+done
+export PATH
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# Editor
+command -v nvim &>/dev/null && export EDITOR=nvim VISUAL=nvim
+
+# History
 HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
+HISTSIZE= HISTFILESIZE=
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=
-HISTFILESIZE=
+# Shell options
+shopt -s checkwinsize globstar
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# PS1 (git branch + exit status indicator)
+PS1='\[\e[1;38;5;120m\]\u@\h:\[\e[0;38;5;15m\]\w\[\e[38;5;210m\]$(git branch 2>/dev/null | sed -n "s/^\* \(.*\)/ (\1)/p")\[\e[0m\] $([ $? -eq 0 ] && echo "\[\e[32m\]" || echo "\[\e[31m\]")>\[\e[0m\] '
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-shopt -s globstar
+# Source files if they exist
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
-force_color_prompt=yes
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-  xterm-color|*-256color) color_prompt=yes;;
+# OS-specific
+case $(uname) in
+    Linux)
+        [[ -z ${debian_chroot:-} && -r /etc/debian_chroot ]] && debian_chroot=$(</etc/debian_chroot)
+        ! shopt -oq posix && for f in /usr/share/bash-completion/bash_completion /etc/bash_completion; do
+            [[ -f $f ]] && { . "$f"; break; }
+        done ;;
+    Darwin)
+        [[ -e ~/.iterm2_shell_integration.bash ]] && . ~/.iterm2_shell_integration.bash
+        [[ -r /opt/homebrew/etc/profile.d/bash_completion.sh ]] && . /opt/homebrew/etc/profile.d/bash_completion.sh
+        [[ -f /opt/homebrew/bin/fzf ]] && eval "$(fzf --bash)" ;;
 esac
-
-if [ -f $HOME/.bash_aliases ]; then
-  . $HOME/.bash_aliases
-fi
-
-if [ $(uname) = "Linux" ]; then
-    # set variable identifying the chroot you work in (used in the prompt below)
-    if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-        debian_chroot=$(cat /etc/debian_chroot)
-    fi
-
-    # enable programmable completion features (you don't need to enable
-    # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-    # sources /etc/bash.bashrc).
-    if ! shopt -oq posix; then
-      if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-      elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-      fi
-    fi
-fi
-
-if [ $(uname) = "Darwin" ]; then
-    test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-    [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-    [[ -f "/opt/homebrew/bin/fzf" ]] && eval "$(fzf --bash)"
-fi
-
-if [ -f "$PWD/venv/bin/activate" ] || [ -f "$PWD/.venv/bin/activate" ]; then
-    vactivate
-fi

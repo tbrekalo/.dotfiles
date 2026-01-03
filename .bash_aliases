@@ -6,14 +6,8 @@ alias tkill='tmux kill-session -t'
 alias tkill-all='tmux ls -F#S | xargs -I@ tmux kill-session -t@'
 
 # common utils colored
-alias ls='ls --color=auto --group-directories-first -hN'
+alias ls='ls --color=auto --group-directories-first -h'
 alias ll='ls -lA'
-
-alias cgrep='grep --color=auto'
-alias pgrep="grep --color=auto -P"
-
-# git
-alias lg='lazygit'
 
 # python
 alias vactivate='. venv/bin/activate 2> /dev/null || . .venv/bin/activate'
