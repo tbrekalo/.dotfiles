@@ -2,9 +2,8 @@
 case $- in *i*) ;; *) return;; esac
 
 # PATH setup
-PATH=""
 for dir in ~/.local/bin /usr/local/bin /usr/local/sbin /usr/bin /usr/sbin /bin /sbin; do
-    [[ -d $dir ]] && PATH="${PATH:+$PATH:}$dir"
+    [[ -d $dir && ":$PATH:" != *":$dir:"* ]] && PATH="${PATH:+$PATH:}$dir"
 done
 export PATH
 
