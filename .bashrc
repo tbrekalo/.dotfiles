@@ -2,9 +2,12 @@
 case $- in *i*) ;; *) return;; esac
 
 # PATH setup
+# PATH setup
 for dir in ~/.local/bin /usr/local/bin /usr/local/sbin /usr/bin /usr/sbin /bin /sbin; do
     [[ -d $dir && ":$PATH:" != *":$dir:"* ]] && PATH="${PATH:+$PATH:}$dir"
 done
+
+[[ -d ~/.cargo/bin && ":$PATH:" != *":$HOME/.cargo/bin:"* ]] && PATH="$HOME/.cargo/bin:$PATH"
 export PATH
 
 # Editor
