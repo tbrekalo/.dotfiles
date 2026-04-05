@@ -17,17 +17,11 @@ if [ $(uname) = "Darwin" ]; then
     export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
     export PATH="/opt/homebrew/opt/ccache/libexec:$PATH"
     export MallocNanoZone=0
-
-    if [ -f $HOME/.orbstack/shell/init.bash ]; then
-        # Added by OrbStack: command-line tools and integration
-        # This won't be added again if you remove it.
-        source $HOME/.orbstack/shell/init.bash 2>/dev/null || :
-    fi
 fi
 
 if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+  . "$HOME/.bashrc"
     fi
 fi
 
@@ -37,11 +31,6 @@ if [ $? != 0 ]; then
     tmux new -s main -dc ~
 
     tmux splitw -dvt main:0. -l5 htop
-    if [ $(uname) = "Darwin" ] && $(command -v ollama > /dev/null); then
-        tmux send-keys -t main:0.0 "ollama run ministral3:8b" Enter "C-l"
-        tmux splitw -dvt main:0.0 -c ~
-    fi
-
     tmux new-window -dc ~/.dotfiles -n dotfiles nvim .profile .bashrc .bashaliases
     tmux splitw -dht main:1. -c ~/.dotfiles
 fi
