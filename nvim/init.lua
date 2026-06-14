@@ -56,133 +56,119 @@ vim.keymap.set('n', '<C-d>', function()
   vim.cmd('normal! zz')
 end)
 
--- lazy setup
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
+-- plugin build steps (run on install/update via the builtin package manager)
+vim.api.nvim_create_autocmd('PackChanged', {
+  group = vim.api.nvim_create_augroup('AuGroupPackBuild', { clear = true }),
+  callback = function(args)
+    local kind = args.data.kind
+    local name = args.data.spec.name
+    if name == 'telescope-fzf-native.nvim' and (kind == 'install' or kind == 'update') then
+      vim.notify('Building telescope-fzf-native.nvim')
+      vim.system({ 'cmake', '-S.', '-Bbuild', '-DCMAKE_BUILD_TYPE=Release' }, { cwd = args.data.path }):wait()
+      vim.system({ 'cmake', '--build', 'build', '--config', 'Release' }, { cwd = args.data.path }):wait()
+    elseif name == 'nvim-treesitter' and kind == 'update' then
+      -- parsers for configured languages are installed at startup; refresh them on update
+      vim.cmd('TSUpdate')
+    end
+  end,
+})
 
-require('lazy').setup({
-  { 'tpope/vim-fugitive' },
-  {
-    'folke/lazydev.nvim',
-    ft = 'lua', -- only load on lua files
-    opts = {
-      library = {
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
-    },
-  },
-  {
-    'saghen/blink.cmp',
-    version = '*',
-    opts = {
-      appearance = {
-        highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
-        nerd_font_variant = 'mono',
-      },
-      fuzzy = {
-        use_proximity = true,
-        implementation = 'lua',
-        prebuilt_binaries = {
-          download = true,
-        },
-      },
-      sources = {
-        default = { 'lsp', 'path', 'lazydev', 'buffer' },
-        providers = {
-          lazydev = {
-            name = 'LazyDev',
-            module = 'lazydev.integrations.blink',
-            score_offset = 100,
-          },
-          cmdline = { min_keyword_length = 2 },
-        },
-      },
-    },
-  },
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
-      },
-    },
-    opts = {
-      defaults = {
-        layout_strategy = 'vertical',
-        vimgrep_arguments = {
-          'rg',
-          '--pcre2',
-          '--color=never',
-          '--no-heading',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case',
-        },
-      },
-      extensions = {
-        fzf = {
-          fuzzy = true, -- false will only do exact matching
-          override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true, -- override the file sorter
-          case_mode = 'smart_case', -- or "ignore_case" or "respect_case" or "smart_case"
-        },
-      },
-      load_extensions = { 'fzf' },
-    },
-  },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = { 'windwp/nvim-ts-autotag' },
-    lazy = false,
-    build = ':TSUpdate',
-    config = function()
-      local treesitter = require('nvim-treesitter')
-      local languages = { 'cmake', 'cpp', 'json', 'lua', 'python' }
+-- plugins (neovim 0.12 builtin package manager)
+vim.pack.add({
+  { src = 'https://github.com/tpope/vim-fugitive' },
+  { src = 'https://github.com/folke/lazydev.nvim' },
+  { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('*') },
+  { src = 'https://github.com/nvim-lua/plenary.nvim' },
+  { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' },
+  { src = 'https://github.com/nvim-telescope/telescope.nvim' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+  { src = 'https://github.com/windwp/nvim-ts-autotag' },
+  { src = 'https://github.com/windwp/nvim-autopairs' },
+  { src = 'https://github.com/EdenEast/nightfox.nvim' },
+})
 
-      treesitter.install(languages)
-      vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('AuGroupTreesitterSetup', { clear = true }),
-        pattern = languages,
-        callback = function()
-          vim.treesitter.start()
-        end,
-      })
-    end,
-  },
-  {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    config = true,
-  },
-  {
-    'EdenEast/nightfox.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd('colorscheme terafox')
-    end,
+-- lazydev
+require('lazydev').setup({
+  library = {
+    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
   },
 })
+
+-- blink.cmp
+require('blink.cmp').setup({
+  appearance = {
+    highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
+    nerd_font_variant = 'mono',
+  },
+  fuzzy = {
+    use_proximity = true,
+    implementation = 'lua',
+  },
+  sources = {
+    default = { 'lsp', 'path', 'lazydev', 'buffer' },
+    providers = {
+      lazydev = {
+        name = 'LazyDev',
+        module = 'lazydev.integrations.blink',
+        score_offset = 100,
+      },
+      cmdline = { min_keyword_length = 2 },
+    },
+  },
+})
+
+-- telescope
+local telescope = require('telescope')
+telescope.setup({
+  defaults = {
+    layout_strategy = 'vertical',
+    vimgrep_arguments = {
+      'rg',
+      '--pcre2',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+    },
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = 'smart_case',
+    },
+  },
+})
+telescope.load_extension('fzf')
+
+-- treesitter
+local treesitter = require('nvim-treesitter')
+local treesitter_languages = { 'cmake', 'cpp', 'json', 'lua', 'python' }
+treesitter.install(treesitter_languages)
+require('nvim-ts-autotag').setup()
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('AuGroupTreesitterSetup', { clear = true }),
+  pattern = treesitter_languages,
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
+
+-- autopairs
+require('nvim-autopairs').setup()
+
+-- colorscheme
+vim.cmd('colorscheme terafox')
 
 -- lsp cconfig
 vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('AuGroupLspAttach', { clear = true }),
   callback = function(args)
-    local opts = { noremap = true, silent = true, buffer = args.data.bufnr }
+    local opts = { noremap = true, silent = true, buffer = args.buf }
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -245,15 +231,21 @@ vim.lsp.config('lua_ls', {
 })
 vim.lsp.enable('lua_ls')
 
-vim.lsp.config('stylua', {
-  cmd = { 'stylua', '--lsp' },
-  filetypes = { 'lua' },
-  root_markers = {
-    '.stylua.toml',
-    'stylua.toml',
-  },
+-- stylua has no language server, so run it directly to format lua buffers on save
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('AuGroupStylua', { clear = true }),
+  pattern = '*.lua',
+  callback = function(args)
+    local input = table.concat(vim.api.nvim_buf_get_lines(args.buf, 0, -1, false), '\n')
+    local result = vim.system({ 'stylua', '-' }, { stdin = input, text = true }):wait()
+    if result.code ~= 0 then
+      vim.notify('stylua: ' .. (result.stderr or 'failed'), vim.log.levels.ERROR)
+      return
+    end
+    local formatted = vim.split((result.stdout or ''):gsub('\n$', ''), '\n')
+    vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, formatted)
+  end,
 })
-vim.lsp.enable('stylua')
 
 -- python
 vim.lsp.config('pyright', {
