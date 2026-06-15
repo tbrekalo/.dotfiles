@@ -42,6 +42,9 @@ vim.o.backupdir = '/tmp/'
 vim.o.directory = '/tmp/'
 vim.o.undodir = '/tmp/'
 
+-- enable experimental ui2
+require('vim._core.ui2').enable({})
+
 -- tab settings
 vim.keymap.set('n', 'gn', vim.cmd.tabnew, { silent = true })
 vim.keymap.set('n', 'gx', vim.cmd.tabclose, { silent = true })
